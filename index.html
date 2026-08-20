@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perception3D - Home</title>
+    <!-- CORREZIONE: Collegamento esatto a Google Fonts per il font futuristico Orbitron -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+   <link href="https://googleapis.com" rel="stylesheet">
+    <!-- Collegamento al foglio di stile CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- 1. INTESTAZIONE DEL SITO -->
+    <header class="header-frattale">
+        <div class="header-content">
+            <h1 class="titolo-animato">Perception3D</h1>
+    
+            <!-- PULSANTE CONTATTI POSIZIONATO IN BASSO A SINISTRA -->
+            <div class="header-action-container">
+                <a href="#sezione-contatti" class="btn-portfolio">Contatti</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 2. CONTENUTO PRINCIPALE -->
+    <main>
+        <!-- SPAZIO DEDICATO AL LOGO AZIENDALE -->
+        <div class="logo-container">
+            <img src="immagini/PERCEPTION/Logo.png" alt="Perception3D Logo" class="main-logo">
+        </div>
+
+        <!-- Nome e Ruolo del Fondatore -->
+        <div class="profile-header">
+            <h3>Valentina Galli & Flavio Barattucci 
+                Founder & Lead Designers</h3>
+        </div>
+
+        <!-- Sezione Chi Sono -->
+        <section class="bio-section">
+            <h4>Chi Sono</h4>
+            <p>Il design non è solo una professione, ma un linguaggio che parlo da sempre. Cresciuta in una famiglia di imprenditori edili, ho vissuto i cantieri fin da piccola, sviluppando una profonda comprensione e una forte passione per tutto ciò che riguarda l'edilizia. Nel tempo, però, il mio legame con il mattone si è evoluto: sono rimasta affascinata dalla struttura, ma mi sono innamorata del design.</p>
+        </section>
+
+        <!-- Sezione Perché ho fondato lo Studio -->
+        <section class="bio-section">
+            <h4>Perché ho fondato lo Studio</h4>
+            <p>Ho creato questa realtà per unire due mondi: la precisione tecnica del settore edile e l'innovazione estetica del design. Grazie alle mie radici, so come nasce e come si sviluppa un progetto a livello pratico e strutturale. Ho aperto questa azienda per trasformare il potenziale architettonico in spazi unici, capaci di coniugare la mia eredità imprenditoriale con una visione contemporanea e funzionale.</p>
+        </section>
+
+        <!-- Sezione Competenze Tecniche -->
+        <section class="bio-section">
+            <h4>Competenze Tecniche</h4>
+            <p>Trasformo le idee in realtà progettuali precise ed eseguibili attraverso l'uso dei principali software di settore. Ho consolidato la mia preparazione frequentando corsi ufficiali riconosciuti a livello internazionale:</p>
+            
+            <ul class="software-list">
+                <li><strong>Rhinoceros</strong> – Modellazione 3D geometrica ed organica ad alta precisione.</li>
+                <li><strong>Autodesk AutoCAD</strong> – Progettazione tecnica bidimensionale e layout architettonici.</li>
+                <li><strong>Blender</strong> – Modellazione poligonale avanzata e sviluppo di concept creativi.</li>
+                <li><strong>Cinema 4D</strong> – Rendering fotorealistici di alto livello, texturing e illuminazione scenografica.</li>
+            </ul>
+        </section>
+
+        <!-- SEZIONE CON PULSANTE PER IL PORTFOLIO -->
+        <section style="text-align: center; margin-top: 40px; margin-bottom: 40px;">
+            <a href="portfolio.html" class="btn-portfolio">Cosa facciamo &rarr;</a>
+        </section>
+
+        <!-- SEZIONE CONTATTI IN FONDO ALLA PAGINA -->
+        <section id="sezione-contatti" class="contacts-section" style="margin-top: 60px; border-top: 2px solid var(--beige-light); padding-top: 40px;">
+            <h4>Contatti</h4>
+            <p>Sei interessato a collaborare o desideri ricevere maggiori informazioni sui servizi di modellazione, ristrutturazione e rendering 3D? contattaci qui.</p>
+            
+            <ul class="contacts-list" style="list-style: none; padding-left: 0; margin-top: 20px;">
+                <li style="margin-bottom: 15px; font-size: 1.1rem;"><strong>Email:</strong> realperception3d@gmail.com</li>
+                <li style="margin-bottom: 15px; font-size: 1.1rem;"><strong>Telefono:</strong> +39 393 39 17 225 / 392 204 9902</li>
+                <li style="margin-bottom: 15px; font-size: 1.1rem;"><strong>Studio:</strong> Macerata (MC), Italia</li>
+            </ul>
+
+            <div style="margin-top: 25px; text-align: left;">
+                <a href="contatti.html" class="btn-portfolio" style="text-decoration: none; display: inline-block;">Scrivimi Qui</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- 7. FOOTER -->
+    <footer>
+        <p>&copy; 2026 - Perception3D. Tutti i diritti riservati. 
+            Sito creato da: Flavio Barattucci per info e contatti 392 204 9902 - flavio.barattucci7@gmail.com| <a href="login.html" style="color: var(--beige-dark); text-decoration: none;">Area Riservata</a></p>
+</footer>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // CORREZIONE: Aggiunto il punto prima di foto-slide
+            const schede = document.querySelectorAll('.project-card.foto-slide');
+            
+            // Attiva l'effetto zoom dopo un brevissimo ritardo (100 millisecondi)
+            setTimeout(() => {
+                schede.forEach(scheda => {
+                    scheda.classList.add('zoom');
+                });
+            }, 100);
+        });
+    </script>
+</body>
+</html>

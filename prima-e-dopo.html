@@ -1,0 +1,263 @@
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perception3D - Prima e Dopo</title>
+    <!-- Collegamento a Google Fonts -->
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Foglio di stile unificato del sito -->
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        .lightbox-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(30, 32, 34, 0.95);
+            justify-content: center;
+            align-items: center;
+            touch-action: none;
+        }
+        .lightbox-content {
+            max-width: 85%;
+            max-height: 85%;
+            border-radius: 4px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            animation: zoomIn 0.3s ease;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            color: #ffffff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s;
+            z-index: 10001;
+        }
+        .lightbox-close:hover {
+            color: var(--beige-dark);
+        }
+
+        /* STILE FRECCE DI NAVIGAZIONE PER MOUSE */
+        .lightbox-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ffffff;
+            font-size: 45px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 15px 25px;
+            user-select: none;
+            transition: all 0.2s ease;
+            z-index: 10000;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+        }
+        .lightbox-arrow:hover {
+            color: var(--beige-dark);
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        .arrow-left {
+            left: 20px;
+        }
+        .arrow-right {
+            right: 20px;
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .scheda-nascosta {
+            display: none !important;
+        }
+
+        @media (max-width: 768px) {
+            .lightbox-arrow {
+                display: none;
+            }
+            .lightbox-close {
+                top: 20px;
+                right: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <h1 class="titolo-animato">Prima e Dopo</h1>
+            <p>Confronto trasformazioni architettoniche</p>
+        </div>
+    </header>
+
+    <main>
+        <div class="portfolio-section" style="margin-top: 0; border-top: none; padding-top: 0;">
+
+               <div class="project-card">
+                    <img src="immagini/PRIMA E DOPO/prima e dopo 2.jpg" alt="Render Progetto" class="gallery-img" data-gallery="SALONE" style="cursor: pointer;">
+                    <div class="project-info">
+                        <h5>CENTRO ESTETICO  -  Clicca per entrare<br></h5>
+                    </div>
+                </div>
+               <div class="project-card scheda-nascosta">
+                    <img src="immagini/PRIMA E DOPO/prima e dopo 1.jpg" alt="Render Nascosto 1" class="gallery-img" data-gallery="SALONE">
+                </div>
+
+                <div class="project-card scheda-nascosta">
+                    <img src="immagini/PRIMA E DOPO/prima e dopo 3 jpg.jpg" alt="Render Nascosto 1" class="gallery-img" data-gallery="SALONE">
+                </div>
+
+
+                <div class="project-card scheda-nascosta">
+                    <img src="immagini/DOPO CENTRO ESTETICO/Centro estetico copertina.jpg" alt="Render Nascosto 1" class="gallery-img" data-gallery="SALONE">
+                </div>
+<div class="project-card scheda-nascosta">
+                    <img src="immagini/DOPO CENTRO ESTETICO/sala d'attesa.jpg" alt="Render Nascosto 1" class="gallery-img" data-gallery="SALONE">
+                </div>
+
+                <div class="project-card scheda-nascosta">
+                    <img src="immagini/DOPO CENTRO ESTETICO/post mani.jpg" alt="Render Nascosto 1" class="gallery-img" data-gallery="SALONE">
+                </div>
+<div class="project-card scheda-nascosta">
+                    <img src="immagini/DOPO CENTRO ESTETICO/postmani 2.jpg" alt="Render Nascosto 1" class="gallery-img" data-gallery="SALONE">
+                </div>
+                <div class="project-card scheda-nascosta">
+                    <img src="immagini/DOPO CENTRO ESTETICO/dettaglio.jpg" alt="Render Nascosto 1" class="gallery-img" data-gallery="SALONE">
+                </div>
+
+                <div class="project-card scheda-nascosta">
+                    <img src="immagini/DOPO CENTRO ESTETICO/post piedi.jpg" alt="Render Nascosto 1" class="gallery-img" data-gallery="SALONE">
+                </div>
+<div class="project-card scheda-nascosta">
+                    <img src="immagini/DOPO CENTRO ESTETICO/piedi.jpg" alt="Render Nascosto 1" class="gallery-img" data-gallery="SALONE">
+                </div>
+
+                <div class="project-card scheda-nascosta">
+                    <img src="immagini/DOPO CENTRO ESTETICO/poltroncina.jpg" alt="Render Nascosto 1" class="gallery-img" data-gallery="SALONE">
+                </div>
+<div class="project-card scheda-nascosta">
+                    <img src="immagini/DOPO CENTRO ESTETICO/smalti.jpg" alt="Render Nascosto 1" class="gallery-img" data-gallery="SALONE">
+                </div>
+
+                <div class="project-card scheda-nascosta">
+                    <img src="immagini/DOPO CENTRO ESTETICO/smalti 2.jpg" alt="Render Nascosto 1" class="gallery-img" data-gallery="SALONE">
+                </div>
+<div class="project-card scheda-nascosta">
+                    <img src="immagini/DOPO CENTRO ESTETICO/solarium.jpg" alt="Render Nascosto 1" class="gallery-img" data-gallery="SALONE">
+                </div>
+
+                <div class="project-card scheda-nascosta">
+                    <img src="immagini/DOPO CENTRO ESTETICO/post massageee.jpg" alt="Render Nascosto 1" class="gallery-img" data-gallery="SALONE">
+                </div>
+
+
+              
+            <!-- SEZIONE FOTO PRIMA E DOPO  -->
+            <h4 style="text-transform: uppercase; margin-bottom: 20px; border-left: 4px solid var(--beige-dark); padding-left: 15px;">ESEMPIO A CAMPIONE DI UNA DELLE NOSTRE REALIZZAZIONI</h4>
+            <div class="projects-grid" style="margin-bottom: 50px;">
+
+            
+            
+        <section style="text-align: center; margin-top: 50px;">
+            <a href="ristrutturazioni.html" class="btn-back">&larr; Torna INDIETRO</a>
+        </section>
+    </main>
+
+    <!-- STRUTTURA LIGHTBOX CON FRECCE AGGIUNTE -->
+    <div id="lightbox" class="lightbox-modal">
+        <span class="lightbox-close" id="close-btn">&times;</span>
+        <span class="lightbox-arrow arrow-left" id="prev-btn">&#10094;</span>
+        <img class="lightbox-content" id="lightbox-img" src="" alt="Zoom">
+        <span class="lightbox-arrow arrow-right" id="next-btn">&#10095;</span>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 - Perception3D. Tutti i diritti riservati.</p>
+    </footer>
+
+    <script>
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const closeBtn = document.getElementById('close-btn');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        
+        let immaginiFiltrate = [];
+        let indiceAttuale = 0;
+
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.querySelectorAll('.gallery-img').forEach((img) => {
+            img.addEventListener('click', () => {
+                const tipoGalleria = img.getAttribute('data-gallery');
+                immaginiFiltrate = Array.from(document.querySelectorAll(`.gallery-img[data-gallery="${tipoGalleria}"]`));
+                indiceAttuale = immaginiFiltrate.indexOf(img);
+                
+                lightbox.style.display = 'flex';
+                lightboxImg.src = img.src;
+            });
+        });
+
+        function prossimaFoto() {
+            if (immaginiFiltrate.length > 0) {
+                indiceAttuale = (indiceAttuale + 1) % immaginiFiltrate.length;
+                lightboxImg.src = immaginiFiltrate[indiceAttuale].src;
+            }
+        }
+
+        function fotoPrecedente() {
+            if (immaginiFiltrate.length > 0) {
+                indiceAttuale = (indiceAttuale - 1 + immaginiFiltrate.length) % immaginiFiltrate.length;
+                lightboxImg.src = immaginiFiltrate[indiceAttuale].src;
+            }
+        }
+
+        function chiudiLightbox() {
+            lightbox.style.display = 'none';
+        }
+
+        closeBtn.addEventListener('click', chiudiLightbox);
+        nextBtn.addEventListener('click', (e) => { e.stopPropagation(); prossimaFoto(); });
+        prevBtn.addEventListener('click', (e) => { e.stopPropagation(); fotoPrecedente(); });
+        lightbox.addEventListener('click', (e) => { if (e.target === lightbox) chiudiLightbox(); });
+
+        document.addEventListener('keydown', (e) => {
+            if (lightbox.style.display === 'flex') {
+                if (e.key === 'ArrowRight') prossimaFoto();
+                else if (e.key === 'ArrowLeft') fotoPrecedente();
+                else if (e.key === 'Escape') chiudiLightbox();
+            }
+        });
+
+        lightbox.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches.screenX;
+        }, { passive: true });
+
+        lightbox.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches.screenX;
+            gestisciSwipe();
+        }, { passive: true });
+
+        function gestisciSwipe() {
+            const sogliaMinima = 50;
+            if (touchEndX < touchStartX - sogliaMinima) prossimaFoto();
+            if (touchEndX > touchStartX + sogliaMinima) fotoPrecedente();
+        }
+    </script>
+</body>
+</html>

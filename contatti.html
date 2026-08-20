@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perception3D - Invia un Messaggio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body style="background-color: var(--beige-light); min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between; margin: 0;">
+
+    <header style="padding: 40px 20px;">
+        <h1>Perception3D</h1>
+        <p>Nuovo Messaggio</p>
+    </header>
+
+    <main class="full-screen-main" style="max-width: 100%; margin: 0; padding: 0; width: 100%;">
+        
+        <!-- Barra di controllo superiore (Annulla) senza margini invasivi -->
+        <div style="padding: 20px 40px; background-color: var(--white); border-bottom: 1px solid var(--beige-medium);">
+            <a href="index.html" class="btn-back">&larr; Annulla e torna alla Home</a>
+        </div>
+
+        <!-- SCHEDA SENZA BORDI E MARGINI -->
+        <div class="gmail-style-box">
+            <!-- ID modulo-contatti inserito per agganciare JavaScript -->
+            <form id="modulo-contatti" action="#" method="POST">
+                
+                <!-- Campi di input in linea (senza bordi visibili) -->
+                <div class="inline-field-group">
+                    <input type="text" id="nome" name="nome" required placeholder="Nome *">
+                </div>
+
+                <div class="inline-field-group">
+                    <input type="text" id="cognome" name="cognome" required placeholder="Cognome *">
+                </div>
+
+                <!-- Campo Email inserito per permettere a Make l'auto-risposta -->
+                <div class="inline-field-group">
+                    <input type="email" id="email" name="email" required placeholder="Indirizzo Email *">
+                </div>
+
+                <div class="inline-field-group">
+                    <input type="tel" id="telefono" name="telefono" required placeholder="Numero di Telefono *">
+                </div>
+
+                <!-- L'AREA DI TESTO CHE OCCUPA TUTTO LO SPAZIO RIMANENTE -->
+                <div class="textarea-full-group">
+                    <textarea id="messaggio" name="messaggio" placeholder="Scrivi qui i dettagli del lavoro, le tue idee o le specifiche tecniche..."></textarea>
+                </div>
+
+                <!-- Barra inferiore con il pulsante di invio -->
+                <div class="bottom-action-bar">
+                    <button type="submit" class="btn-portfolio" style="border: none; cursor: pointer; padding: 16px 50px;">Invia Richiesta</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 - Perception3D. Tutti i diritti riservati.</p>
+    </footer>
+
+    <script>
+        // Intercettiamo l'invio del modulo stile Gmail
+        document.getElementById('modulo-contatti').addEventListener('submit', function(e) {
+            e.preventDefault(); // Impedisce alla pagina di ricaricarsi o mostrare schermate bianche
+
+            // Raccogliamo i dati inseriti dall'utente sfruttando gli ID del modulo
+            const datiContatto = {
+                nome: document.getElementById('nome').value,
+                cognome: document.getElementById('cognome').value,
+                email: document.getElementById('email').value,
+                telefono: document.getElementById('telefono').value,
+                messaggio: document.getElementById('messaggio').value
+            };
+
+            // Spediamo i dati a Make.com tramite il comando fetch
+            // NOTA: Ricordati di sostituire l'URL qui sotto con il link effettivo del tuo Webhook di Make!
+            fetch('https://hook.eu1.make.com/ubi1467l4t757t9i6q86wqfnxsogm3za', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(datiContatto)
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Se l'invio ha successo, avvisa il cliente e svuota la scheda contatti
+                    alert('Richiesta inviata con successo! Riceverai a breve una mail di conferma.');
+                    document.getElementById('modulo-contatti').reset();
+                } else {
+                    alert('Si è verificato un errore durante l\'invio. Riprova più tardi.');
+                }
+            })
+            .catch(error => {
+                console.error('Errore:', error);
+                alert('Errore di connessione. Verifica di essere connesso a Internet.');
+            });
+        });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perception3D - I Nostri Lavori</title>
+    <!-- Colleghiamo lo stesso stile CSS della Home -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- STILE PER IL LIGHTBOX (NON TOCCA LE FOTO DELLA GRIGLIA) -->
+    <style>
+        .lightbox-modal {
+            display: none;
+            position: fixed;
+            z-index: 99999;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(30, 32, 34, 0.95);
+            justify-content: center;
+            align-items: center;
+            touch-action: none;
+        }
+        .lightbox-content {
+            max-width: 85%;
+            max-height: 85%;
+            border-radius: 4px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            animation: zoomIn 0.3s ease;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            color: #ffffff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s;
+            z-index: 100002;
+        }
+        .lightbox-close:hover {
+            color: #c5b9a5;
+        }
+        .lightbox-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ffffff;
+            font-size: 45px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 15px 25px;
+            user-select: none;
+            transition: all 0.2s ease;
+            z-index: 100001;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+        }
+        .lightbox-arrow:hover {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #c5b9a5;
+        }
+        .arrow-left { left: 20px; }
+        .arrow-right { right: 20px; }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .lightbox-arrow { display: none; }
+            .lightbox-close { top: 20px; right: 25px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Intestazione della pagina dei lavori -->
+    <header>
+        <div class="header-content">
+            <h1 class="titolo-animato">I Nostri Lavori</h1>
+            <p>Esplora i progetti e le realizzazioni di Perception3D</p>
+        </div>
+    </header>
+
+    <main id="contenitore-principale">
+        <!-- Pulsante per tornare alla Home -->
+        <div id="tasto-ritorno" style="margin-bottom: 30px; padding: 0 40px;">
+            <a href="index.html" class="btn-back">&larr; Torna alla Home</a>
+        </div>
+
+        <!-- ================= LIVELLO 1: LE 2 SCHEDE INIZIALI ================= -->
+        <section id="blocco-portfolio" class="portfolio-section" style="border-top: none; padding: 0 40px;">
+            <div class="projects-grid">
+                
+                <!-- Scheda Lavoro 1: Ristrutturazioni (Porta a un'altra pagina) -->
+                <div class="project-card">
+                    <a href="ristrutturazioni.html" style="text-decoration: none; color: inherit;">
+                        <img src="immagini/RENDER VILLETTE TAUNUS/Vista2.3_def.jpg" alt="Rendering Progetto 3D">
+                        <div class="project-info">
+                            <h5>PROGETTAZIONE E DESIGN</h5>
+                            <p>Sviluppo di concept d'interni. (Clicca per entrare)</p>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Scheda Lavoro 2: Brevetti Ufficiali -->
+                <div class="project-card" style="cursor: pointer;" onclick="mostraSlider('nuovo')">
+                    <img src="immagini/VASO/pagina 2-3 della brocures.jpg" alt="Rendering Progetto 3D">
+                    <div class="project-info">
+                        <h5>Brevetti ufficiali</h5>
+                        <p>Descrizione del terzo lavoro eseguito da Perception3D. (Clicca per espandere)</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- Slider 3: BREVETTI UFFICIALI (LE FOTO TORNANO AD ESSERE IDENTICHE AL TUO ORIGINALE) -->
+        <section id="blocco-slider-nuovo" class="sezione-slider-singolo" style="display: none;">
+            <div style="padding: 0 40px;">
+                <h4 style="margin-bottom: 10px; color: var(--charcoal);">Focus: Brevetti Ufficiali</h4>
+                <p style="color: #666; margin-bottom: 30px;">Esplorazione e dettagli tecnici relativi ai brevetti di design depositati.</p>
+            </div>
+            
+            <div class="projects-grid-full" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; padding: 0 40px;">
+                <!-- FOTO 1 BREVETTO (Nessun ridimensionamento mio, ripristinato il tuo stile di blocco) -->
+                <div class="project-card foto-slide" style="cursor: pointer;">
+                    <img src="immagini/VASO/pagina 2-3 della brocures.jpg" style="width: 100%; height: auto; display: block;" alt="Progetto 1" class="gallery-img" data-gallery="brevetti">
+                </div>
+                <!-- FOTO 2 BREVETTO (Nessun ridimensionamento mio, ripristinato il tuo stile di blocco) -->
+                <div class="project-card foto-slide" style="cursor: pointer;">
+                    <img src="immagini/VASO/pagina 4-1 della brocure.jpg" style="width: 100%; height: auto; display: block;" alt="Progetto 2" class="gallery-img" data-gallery="brevetti">
+                </div>
+
+                
+                
+            </div>
+        </section>
+
+        <!-- STRUTTURA DEL POPUP LIGHTBOX -->
+        <div id="lightbox" class="lightbox-modal">
+            <span class="lightbox-close" id="close-btn">&times;</span>
+            <span class="lightbox-arrow arrow-left" id="prev-btn">❮</span>
+            <img class="lightbox-content" id="lightbox-img" src="" alt="Zoom">
+            <span class="lightbox-arrow arrow-right" id="next-btn">❯</span>
+        </div>
+
+        <!-- TASTO TORNA INDIETRO -->
+        <div id="tasto-chiudi-slider" style="text-align: center; margin-top: 40px; display: none;">
+            <button class="btn-portfolio" style="border: none; cursor: pointer;" onclick="nascondiSlider()">Torna Indietro</button>
+        </div>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 - Perception3D. Tutti i diritti riservati.</p>
+    </footer>
+
+    <script>
+        let sliderCorrente = '';
+        let immaginiFiltrate = [];
+        let indiceAttuale = 0;
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        function mostraSlider(tipoLavoro) {
+            sliderCorrente = tipoLavoro;
+            const corpoPagina = document.body;
+            const contenitore = document.getElementById('contenitore-principale');
+            const schedeFoto = document.querySelectorAll('#blocco-slider-' + tipoLavoro + ' .foto-slide');
+
+            corpoPagina.classList.add('sfondo-transizione');
+
+            setTimeout(() => {
+                document.getElementById('blocco-portfolio').style.display = 'none';
+                contenitore.classList.add('main-full-width'); 
+                
+                document.getElementById('blocco-slider-' + tipoLavoro).style.display = 'block';
+                document.getElementById('tasto-chiudi-slider').style.display = 'block';
+                
+                window.scrollTo({top: 0, behavior: 'auto'});
+
+                schedeFoto.forEach((foto, indice) => {
+                    foto.style.opacity = '1';
+                    foto.style.transform = 'scale(1)';
+                    
+                    setTimeout(() => {
+                        foto.classList.add('zoom');
+                    }, indice * 250);
+                });
+            }, 250);
+        }
+
+        function nascondiSlider() {
+            const corpoPagina = document.body;
+            const contenitore = document.getElementById('contenitore-principale');
+            const schedeFoto = document.querySelectorAll('#blocco-slider-' + sliderCorrente + ' .foto-slide');
+
+            schedeFoto.forEach(foto => {
+                foto.classList.remove('zoom');
+                foto.style.opacity = '';
+                foto.style.transform = '';
+            });
+
+            corpoPagina.classList.remove('sfondo-transizione');
+            contenitore.classList.remove('main-full-width');
+            
+            document.getElementById('blocco-slider-' + sliderCorrente).style.display = 'none';
+            document.getElementById('tasto-chiudi-slider').style.display = 'none';
+            
+            document.getElementById('blocco-portfolio').style.display = 'block';
+        }
+
+        // ================= LOGICA INTERATTIVA LIGHTBOX =================
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const closeBtn = document.getElementById('close-btn');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+
+        document.querySelectorAll('.gallery-img').forEach((img) => {
+            img.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const tipoGalleria = img.getAttribute('data-gallery');
+                
+                immaginiFiltrate = Array.from(document.querySelectorAll(`.gallery-img[data-gallery="${tipoGalleria}"]`));
+                indiceAttuale = immaginiFiltrate.indexOf(img);
+                
+                mostraImmagine();
+                lightbox.style.display = 'flex';
+            });
+        });
+
+        function mostraImmagine() {
+            lightboxImg.src = immaginiFiltrate[indiceAttuale].src;
+            lightboxImg.alt = immaginiFiltrate[indiceAttuale].alt;
+        }
+
+        function fotoSuccessiva() {
+            if (immaginiFiltrate.length === 0) return;
+            indiceAttuale = (indiceAttuale + 1) % immaginiFiltrate.length;
+            mostraImmagine();
+        }
+
+        function fotoPrecedente() {
+            if (immaginiFiltrate.length === 0) return;
+            indiceAttuale = (indiceAttuale - 1 + immaginiFiltrate.length) % immaginiFiltrate.length;
+            mostraImmagine();
+        }
+
+        function chiudiLightbox() {
+            lightbox.style.display = 'none';
+        }
+
+        closeBtn.addEventListener('click', chiudiLightbox);
+        nextBtn.addEventListener('click', (e) => { e.stopPropagation(); fotoSuccessiva(); });
+        prevBtn.addEventListener('click', (e) => { e.stopPropagation(); fotoPrecedente(); });
+        lightbox.addEventListener('click', chiudiLightbox);
+        lightboxImg.addEventListener('click', (e) => { e.stopPropagation(); });
+
+        document.addEventListener('keydown', (e) => {
+            if (lightbox.style.display === 'flex') {
+                if (e.key === 'Escape') chiudiLightbox();
+                if (e.key === 'ArrowRight') fotoSuccessiva();
+                if (e.key === 'ArrowLeft') fotoPrecedente();
+            }
+        });
+
+        lightbox.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches.screenX;
+        }, { passive: true });
+
+        lightbox.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches.screenX;
+            gestisciSwipe();
+        }, { passive: true });
+
+        function gestisciSwipe() {
+            const tolleranzaSwipe = 50;
+            if (touchStartX - touchEndX > tolleranzaSwipe) {
+                fotoSuccessiva();
+            }
+            if (touchEndX - touchStartX > tolleranzaSwipe) {
+                fotoPrecedente();
+            }
+        }
+    </script>
+
+
+
+
+
