@@ -104,19 +104,12 @@
                         <img src="immagini/RENDER VILLETTE TAUNUS/Vista2.3_def.jpg" alt="Rendering Progetto 3D">
                         <div class="project-info">
                             <h5>PROGETTAZIONE E DESIGN</h5>
-                            <p>Sviluppo di concept d'interni. (Clicca per entrare)</p>
+                            <p>Sviluppo di concept interni ed esterni. (Clicca per entrare)</p>
                         </div>
                     </a>
                 </div>
 
-                <!-- Scheda Lavoro 2: Brevetti Ufficiali -->
-                <div class="project-card" style="cursor: pointer;" onclick="mostraSlider('nuovo')">
-                    <img src="immagini/VASO/pagina 2-3 della brocures.jpg" alt="Rendering Progetto 3D">
-                    <div class="project-info">
-                        <h5>Brevetti ufficiali</h5>
-                        <p>Descrizione del terzo lavoro eseguito da Perception3D. (Clicca per espandere)</p>
-                    </div>
-                </div>
+           
 
             </div>
         </section>
@@ -159,7 +152,7 @@
 
     </main>
 
-    <footer>
+ <footer>
         <p>&copy; 2026 - Perception3D. Tutti i diritti riservati.</p>
     </footer>
 
@@ -169,6 +162,10 @@
         let indiceAttuale = 0;
         let touchStartX = 0;
         let touchEndX = 0;
+        
+        // Variabili di supporto inserite per gestire lo zoom nativo senza librerie esterne
+        let zoomAttivo = false;
+        let ultimoTocco = 0;
 
         function mostraSlider(tipoLavoro) {
             sliderCorrente = tipoLavoro;
@@ -235,12 +232,14 @@
                 
                 mostraImmagine();
                 lightbox.style.display = 'flex';
+                resettaZoom(); // Forza il ripristino ad ogni apertura
             });
         });
 
         function mostraImmagine() {
             lightboxImg.src = immaginiFiltrate[indiceAttuale].src;
             lightboxImg.alt = immaginiFiltrate[indiceAttuale].alt;
+            resettaZoom();
         }
 
         function fotoSuccessiva() {
@@ -257,6 +256,7 @@
 
         function chiudiLightbox() {
             lightbox.style.display = 'none';
+            resettaZoom();
         }
 
         closeBtn.addEventListener('click', chiudiLightbox);
@@ -273,17 +273,22 @@
             }
         });
 
+        // Correzione e ottimizzazione dei tracciamenti Touch
         lightbox.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches.screenX;
+            if (e.touches.length === 1) { // Traccia lo swipe solo se si usa un dito solo per non rompere lo zoom
+                touchStartX = e.changedTouches[0].screenX;
+            }
         }, { passive: true });
 
         lightbox.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches.screenX;
-            gestisciSwipe();
+            if (e.touches.length === 0 && !zoomAttivo) {
+                touchEndX = e.changedTouches[0].screenX;
+                gestisciSwipe();
+            }
         }, { passive: true });
 
         function gestisciSwipe() {
-            const tolleranzaSwipe = 50;
+            const tolleranzaSwipe = 60;
             if (touchStartX - touchEndX > tolleranzaSwipe) {
                 fotoSuccessiva();
             }
@@ -291,9 +296,35 @@
                 fotoPrecedente();
             }
         }
+
+        // AGGIUNTA INTEGRATIVA: Gestione Zoom via Doppio Tocco (Double Tap) su Mobile e PC
+        lightboxImg.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const ora = new Date().getTime();
+            const intervalloTocco = ora - ultimoTocco;
+            if (intervalloTocco < 300 && intervalloTocco > 0) {
+                toggleZoom(e);
+            }
+            ultimoTocco = ora;
+        });
+
+        function toggleZoom(e) {
+            if (!zoomAttivo) {
+                lightboxImg.style.transform = 'scale(2)';
+                lightboxImg.style.cursor = 'zoom-out';
+                lightbox.style.overflow = 'auto'; // Permette di muoversi dentro la foto zoomata
+                lightbox.style.touchAction = 'pan-x pan-y'; // Sblocca lo scorrimento del dito nello zoom
+                zoomAttivo = true;
+            } else {
+                resettaZoom();
+            }
+        }
+
+        function resettaZoom() {
+            lightboxImg.style.transform = 'scale(1)';
+            lightboxImg.style.cursor = 'zoom-in';
+            lightbox.style.overflow = 'hidden';
+            lightbox.style.touchAction = 'none';
+            zoomAttivo = false;
+        }
     </script>
-
-
-
-
-

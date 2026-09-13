@@ -297,9 +297,9 @@ footer {
 }
 
 .main-logo {
-    width: 100% !important;             /* FORZA IL LOGO A OCCUPARE L'INTERA LARGHEZZA DISPONIBILE */
-    max-width: 100% !important;         /* Gli impedisce di andare oltre i margini del foglio */
-    height: auto !important;            /* MANTIENE LE PROPORZIONI PERFETTE SENZA DEFORMARE */
+    width: 100% !important;             
+    max-width: 100% !important;         
+    height: auto !important;            
     display: block !important;
     transform: scale(1) !important;     
     opacity: 1 !important;              
@@ -311,7 +311,6 @@ body.sfondo-transizione {
     transition: background-color 0.5s ease-in-out;
 }
 
-/* Regola per allargare il blocco principale a tutto schermo mantenendo i margini stile Gmail */
 main.main-full-width {
     max-width: 100% !important;
     margin: 20px 40px !important;
@@ -320,7 +319,6 @@ main.main-full-width {
     box-sizing: border-box;
 }
 
-/* Nuova griglia orizzontale a schermo intero per le 3 immagini ingrandite dello slider */
 .projects-grid-full {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -330,15 +328,12 @@ main.main-full-width {
     box-sizing: border-box;
 }
 
-/* Applica l'effetto iniziale e avvia l'animazione in automatico senza JS */
 .project-card.foto-slide {
     opacity: 0 !important;
     transform: scale(0) !important;
-    /* Avvia l'animazione automatica dopo 0.2 secondi dall'apertura della pagina */
     animation: zoomSlider 1s cubic-bezier(0.34, 1.3, 0.64, 1) 0.2s forwards !important;
 }
 
-/* Tabella di marcia dell'animazione: porta l'elemento da zero a dimensione reale */
 @keyframes zoomSlider {
     to {
         opacity: 1 !important;
@@ -350,16 +345,28 @@ header .btn-portfolio {
     margin-top: 25px;
 }
 
-/* CORREZIONE DI SICUREZZA PER LO ZOOM DEGLI SLIDER DEL PORTFOLIO */
 .project-card.foto-slide.zoom {
     opacity: 1 !important;
     transform: scale(1) !important;
 }
 
+/* ================= PATCH INTEGRATIVA: SBLOCCO GRAFICO PER LIGHTBOX MOBILE ================= */
+.lightbox-content {
+    transition: transform 0.2s ease-out !important; /* Rende lo zoom col doppio tocco fluido */
+    max-width: 85% !important;
+    max-height: 85% !important;
+    display: block;
+}
+
+#lightbox {
+    overflow: hidden !important;
+    /* Consente lo swipe ma evita che la pagina web sotto si muova a vuoto */
+    touch-action: pan-x pan-y !important; 
+}
+
 /* ================= 12. UNIFICAZIONE E OTTIMIZZAZIONE RESPONSIVA MOBILE ================= */
 @media screen and (max-width: 768px) {
     
-    /* 1. SBLOCCO HEADER E TITOLO AZIENDALE */
     header h1, .titolo-animato {
         font-size: 1.8rem !important;   
         width: 100% !important;         
@@ -371,7 +378,6 @@ header .btn-portfolio {
         font-size: 0.95rem !important;
     }
 
-    /* 2. RICALIBRAZIONE CONTENITORI PRINCIPALI */
     main {
         width: 92% !important;        
         margin: 20px auto !important; 
@@ -380,17 +386,16 @@ header .btn-portfolio {
     }
 
     main.main-full-width {
-        width: 100% !important; /* Cambiato a 100% per evitare che il blocco collida con i margini del body */
+        width: 100% !important; 
         max-width: 100% !important;
         margin: 10px 0 !important; 
         padding: 20px 0 !important;
         box-sizing: border-box !important;
     }
 
-    /* 3. SISTEMAZIONE GRIGLIE PORTFOLIO (VECCHIA COPERTINA ESTERNA) */
     .projects-grid {
         display: grid !important;
-        grid-template-columns: 1fr !important; /* Si impilano in verticale sul telefono */
+        grid-template-columns: 1fr !important; 
         gap: 20px !important;
         padding: 0 10px !important;
         box-sizing: border-box !important;
@@ -400,25 +405,23 @@ header .btn-portfolio {
         height: 180px !important; 
     }
 
-    /* 4. GALLERIE INTERNE DEI LAVORI (CAROSELLI TOUCH ORIZZONTALI) */
     .projects-grid-full {
         display: flex !important;                 
         overflow-x: auto !important;              
         scroll-snap-type: x mandatory !important; 
         gap: 15px !important;
-        padding: 0 15px !important; /* Ridotto leggermente per compensare l'ingombro delle schede */
+        padding: 0 15px !important; 
         margin: 20px 0 0 0 !important;
         -webkit-overflow-scrolling: touch !important; 
         width: 100% !important;
-        box-sizing: border-box !important; /* CORREZIONE CRITICA: Forza il calcolo dell'overflow dentro il blocco */
+        box-sizing: border-box !important; 
     }
 
-    /* Configurazione delle singole foto all'interno dello slider touch */
     .projects-grid-full .project-card.foto-slide {
-        flex: 0 0 82% !important; /* CORREZIONE CRITICA: Abbassato a 82% per dare spazio ai padding laterali senza sfondare lo schermo */
+        flex: 0 0 82% !important; 
         max-width: 82% !important;
         scroll-snap-align: center !important; 
-        opacity: 1 !important; /* Forza la visibilità su mobile */
+        opacity: 1 !important; 
         transform: scale(1) !important;
     }
 
@@ -428,7 +431,6 @@ header .btn-portfolio {
         object-fit: cover !important;
     }
 
-    /* 5. OTTIMIZZAZIONE SEZIONE CONTATTI E TEXTAREA */
     .textarea-full-group textarea {
         min-height: 250px !important; 
         font-size: 1rem !important;
@@ -440,9 +442,20 @@ header .btn-portfolio {
         box-sizing: border-box !important;
     }
 
-    /* 6. ADATTAMENTO ELEMENTI DI TESTO ED ELENCHI */
     .bio-section p {
         text-align: left !important; 
         font-size: 0.95rem !important;
     }
+}
+/* PATCh DEFINITIVA ZOOM FLUIDO CON DUE DITA */
+.lightbox-content {
+    transition: transform 0.05s ease-out !important; /* Reattività immediata al movimento delle dita */
+    max-width: 85% !important;
+    max-height: 85% !important;
+    display: block;
+    transform-origin: center center;
+}
+#lightbox {
+    overflow: hidden !important;
+    touch-action: none !important; /* Gestiamo tutto noi via codice per evitare conflitti del browser */
 }

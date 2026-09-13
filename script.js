@@ -1,17 +1,166 @@
-const fotoPrincipale = document.getElementById('foto-principale');
-const schermataTransizione = document.getElementById('schermata-transizione');
-const singoleFoto = document.querySelectorAll('.foto-slide');
+const lightbox = document.getElementById('lightboxModal'); 
+const lightboxImg = document.getElementById('lightboxImg'); 
+const closeBtn = document.querySelector('.lightbox-close');
+const nextBtn = document.querySelector('.arrow-right');
+const prevBtn = document.querySelector('.arrow-left');
 
-fotoPrincipale.addEventListener('click', () => {
-  // Attiva lo sfondo beige
-  schermataTransizione.classList.add('attiva');
+let immaginiFiltrate = [];
+let indiceAttuale = 0;
 
-  // Aspetta un istante e poi fa nascere le tre foto dal puntino
-  setTimeout(() => {
-    singoleFoto.forEach((foto, indice) => {
-      setTimeout(() => {
-        foto.classList.add('zoom');
-      }, indice * 150); // Ritardo a cascata tra una foto e l'altra
+// Inizializza gli eventi sulle immagini delle cartelle
+document.querySelectorAll('.gallery-img').forEach((img) => {
+    img.style.cursor = 'pointer';
+    img.addEventListener('click', () => {
+        const tipoGalleria = img.getAttribute('data-gallery');
+        
+        immaginiFiltrate = Array.from(document.querySelectorAll(`.gallery-img[data-gallery="${tipoGalleria}"]`));
+        indiceAttuale = immaginiFiltrate.indexOf(img);
+        
+        mostraImmagine();
+        if (lightbox) lightbox.style.display = 'flex';
+        resettaZoom(); 
     });
-  }, 250); 
 });
+
+function mostraImmagine() {
+    if (immaginiFiltrate.length === 0 || !lightboxImg) return;
+    lightboxImg.src = immaginiFiltrate[indiceAttuale].src;
+    lightboxImg.alt = immaginiFiltrate[indiceAttuale].alt;
+    resettaZoom(); 
+}
+
+function fotoSuccessiva() {
+    if (immaginiFiltrate.length === 0) return;
+    indiceAttuale = (indiceAttuale + 1) % immaginiFiltrate.length;
+    mostraImmagine();
+}
+
+function fotoPrecedente() {
+    if (immaginiFiltrate.length === 0) return;
+    indiceAttuale = (indiceAttuale - 1 + immaginiFiltrate.length) % immaginiFiltrate.length;
+    mostraImmagine();
+}
+
+function chiudiLightbox() {
+    if (lightbox) lightbox.style.display = 'none';
+    resettaZoom();
+}
+
+// Eventi click controlli frecce e chiusura
+if (closeBtn) closeBtn.addEventListener('click', chiudiLightbox);
+if (nextBtn) nextBtn.addEventListener('click', (e) => { e.stopPropagation(); fotoSuccessiva(); });
+if (prevBtn) prevBtn.addEventListener('click', (e) => { e.stopPropagation(); fotoPrecedente(); });
+
+if (lightbox) {
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) {
+            chiudiLightbox();
+        }
+    }); 
+}
+if (lightboxImg) {
+    lightboxImg.addEventListener('click', (e) => { e.stopPropagation(); }); 
+}
+
+// Gestione tastiera PC
+document.addEventListener('keydown', (e) => {
+    if (lightbox && lightbox.style.display === 'flex') {
+        if (e.key === 'Escape') chiudiLightbox();
+        if (e.key === 'ArrowRight') fotoSuccessiva();
+        if (e.key === 'ArrowLeft') fotoPrecedente();
+    }
+});
+
+// ================= GESTIONE UNIFICATA TOUCH: SWIPE E PINCH-TO-ZOOM =================
+let touchStartX = 0;
+let touchEndX = 0;
+let touchStartY = 0;
+
+let scalaCorrente = 1;
+let scalaIniziale = 1;
+let distanzaIniziale = 0;
+
+let posX = 0, posY = 0;
+let startX = 0, startY = 0;
+let isDragging = false;
+
+if (lightbox) {
+    lightbox.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 1) {
+            // Estrazione sicura senza parentesi quadre per evitare bug di testo
+            const primoTocco = e.touches.item(0);
+            touchStartX = primoTocco.clientX;
+            touchStartY = primoTocco.clientY;
+            
+            if (scalaCorrente > 1) {
+                isDragging = true;
+                startX = primoTocco.clientX - posX;
+                startY = primoTocco.clientY - posY;
+            }
+        } else if (e.touches.length === 2) {
+            isDragging = false;
+            const t1 = e.touches.item(0);
+            const t2 = e.touches.item(1);
+            distanzaIniziale = Math.hypot(t1.clientX - t2.clientX, t1.clientY - t2.clientY);
+            scalaIniziale = scalaCorrente;
+        }
+    }, { passive: true });
+
+    lightbox.addEventListener('touchmove', (e) => {
+        if (e.touches.length === 1 && isDragging) {
+            const primoTocco = e.touches.item(0);
+            posX = primoTocco.clientX - startX;
+            posY = primoTocco.clientY - startY;
+            applicaTrasformazione();
+        } else if (e.touches.length === 2) {
+            const t1 = e.touches.item(0);
+            const t2 = e.touches.item(1);
+            const distanzaCorrente = Math.hypot(t1.clientX - t2.clientX, t1.clientY - t2.clientY);
+            const fattore = distanzaCorrente / distanzaIniziale;
+            scalaCorrente = Math.min(Math.max(scalaIniziale * fattore, 1), 2.5); 
+            applicaTrasformazione();
+        }
+    }, { passive: true });
+
+    lightbox.addEventListener('touchend', (e) => {
+        isDragging = false;
+        if (e.touches.length === 0) {
+            if (scalaCorrente === 1) {
+                const toccoFinale = e.changedTouches.item(0);
+                touchEndX = toccoFinale.clientX;
+                let touchEndY = toccoFinale.clientY;
+                
+                if (Math.abs(touchStartY - touchEndY) < 40) {
+                    gestisciSwipe();
+                }
+            }
+        }
+    }, { passive: true });
+}
+
+function gestisciSwipe() {
+    const tolleranzaSwipe = 40; 
+    if (touchStartX - touchEndX > tolleranzaSwipe) {
+        fotoSuccessiva(); 
+    }
+    if (touchEndX - touchStartX > tolleranzaSwipe) {
+        fotoPrecedente(); 
+    }
+}
+
+function applicaTrasformazione() {
+    if (!lightboxImg) return;
+    if (scalaCorrente <= 1) {
+        scalaCorrente = 1;
+        posX = 0;
+        posY = 0;
+    }
+    lightboxImg.style.transform = `translate(${posX}px, ${posY}px) scale(${scalaCorrente})`;
+}
+
+function resettaZoom() {
+    scalaCorrente = 1;
+    posX = 0;
+    posY = 0;
+    applicaTrasformazione();
+}
