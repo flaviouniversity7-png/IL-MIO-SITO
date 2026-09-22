@@ -500,41 +500,31 @@ footer {
         font-size: 0.95rem !important;
     }
 
-    /* Rimosso il padding laterale per far toccare le card ai bordi */
+    /* 1. RIPRISTINATO IL MAIN COME IN ORIGINE (Salva l'aspetto della Index) */
     main {
         width: 92% !important;        
         margin: 20px auto !important;
-        padding-top: 20px !important;
-        padding-bottom: 20px !important;    
-        padding-left: 0 !important;  
-        padding-right: 0 !important; 
+        padding: 20px !important;    
         box-sizing: border-box !important;
     }
 
-    /* Ridiamo respiro al pulsante "Torna alla Home" per non attaccarlo ai bordi */
-    .tasto-ritorno-container {
-        padding-left: 20px !important;
-        padding-right: 20px !important;
-    }
-
+    /* 2. RIPRISTINATA LA GRIGLIA E LE CARD COME IN ORIGINE */
     .projects-grid {
-        display: block !important; 
-        padding: 0 !important;
-        margin: 0 !important;
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+        padding: 0 10px !important;
+        box-sizing: border-box !important;
     }
 
-    /* Le card si estendono per tutto il 100% dello spazio orizzontale */
     .project-card {
         width: 100% !important;
         margin-left: 0 !important;
         margin-right: 0 !important;
         border-radius: 0 !important;
-        border-left: none !important;
-        border-right: none !important;
-        border-top: 1px solid var(--beige-medium) !important;
-        border-bottom: 1px solid var(--beige-medium) !important;
+        border-top: 1px solid #dcdcdc !important;
+        border-bottom: 1px solid #dcdcdc !important;
         margin-bottom: 25px !important;
-        box-sizing: border-box !important;
     }
 
     .project-card img {
@@ -542,8 +532,28 @@ footer {
         border-radius: 0 !important;
     }
 
+    /* 3. MODIFICA SPECIFICA SOLO PER LA PAGINA PORTFOLIO */
+    /* Allarga il blocco portfolio per toccare i bordi del riquadro bianco annullando il padding del main */
     #blocco-portfolio {
+        margin-left: -20px !important;
+        margin-right: -20px !important;
+        width: calc(100% + 40px) !important;
         padding: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Modifica l'interno del portfolio senza intaccare le altre pagine */
+    #blocco-portfolio .projects-grid {
+        display: block !important; 
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    #blocco-portfolio .project-card {
+        border-left: none !important;
+        border-right: none !important;
+        border-top: 1px solid var(--beige-medium) !important;
+        border-bottom: 1px solid var(--beige-medium) !important;
     }
 
     .lightbox-arrow { display: none; }
