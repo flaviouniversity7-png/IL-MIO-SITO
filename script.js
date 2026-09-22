@@ -9,18 +9,24 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentGalleryImages = [];
     let currentIndex = 0;
     
-    // Variabili Swipe
+    // Variabili Swipe (Scorrimento galleria)
     let touchStartX = 0;
     let touchEndX = 0;
 
-    // Variabili Zoom & Panning
-    let isZoomed = false;
-    let zoomLevel = 2; // Ingrandimento fisso impostato al 200% (puoi modificarlo a piacere)
+    // Variabili Zoom & Panning (PC + Mobile)
+    let currentScale = 1;
+    let zoomLevel = 2; // Ingrandimento al click/doppio tap (200%)
+    const maxScale = 4;
+    const minScale = 1;
     let pointX = 0, pointY = 0;
     let startX = 0, startY = 0;
     let panning = false;
     let mouseMoved = false;
     let lastTap = 0;
+
+    // Variabili Pinch-to-Zoom (Mobile)
+    let initialPinchDistance = 0;
+    let initialPinchScale = 1;
 
     // Seleziona tutte le immagini della galleria
     const galleryImages = document.querySelectorAll(".gallery-img");
@@ -44,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function updateLightboxContent() {
         if (currentGalleryImages.length > 0 && lightboxImg) {
             lightboxImg.src = currentGalleryImages[currentIndex].src;
-            resetZoom(); // Resetta lo zoom quando si cambia foto
+            resetZoom(); // Resetta lo zoom ad ogni cambio foto
             updateDots();
         }
     }
@@ -95,35 +101,34 @@ document.addEventListener("DOMContentLoaded", function () {
     if (arrowRight) arrowRight.addEventListener("click", nextImage);
 
     // ==========================================
-    // GESTIONE ZOOM (LENTE AL CLICK) & PANNING
+    // GESTIONE ZOOM (PC & MOBILE) & PANNING
     // ==========================================
     
     function applyZoomTransform() {
-        if (isZoomed) {
-            lightboxImg.style.transform = `translate(${pointX}px, ${pointY}px) scale(${zoomLevel})`;
-            lightboxImg.style.cursor = 'grab'; // Cambia in manina per trascinare
+        if (currentScale > 1) {
+            lightboxImg.style.transform = `translate(${pointX}px, ${pointY}px) scale(${currentScale})`;
+            lightboxImg.style.cursor = 'grab';
         } else {
             lightboxImg.style.transform = `translate(0px, 0px) scale(1)`;
-            lightboxImg.style.cursor = 'zoom-in'; // Cursore a lente
+            lightboxImg.style.cursor = 'zoom-in';
         }
     }
 
     function resetZoom() {
-        isZoomed = false;
+        currentScale = 1;
         pointX = 0;
         pointY = 0;
+        initialPinchDistance = 0;
         if (lightboxImg) {
             applyZoomTransform();
         }
     }
 
     if (lightboxImg) {
-        // Cursore iniziale a lente
         lightboxImg.style.cursor = 'zoom-in';
 
-        // 1. Zoom In sul punto esatto con 1 Click / Zoom Out con 2° Click
+        // 1. Zoom PC: Click con la lente
         lightboxImg.addEventListener("click", function(e) {
-            // Se stavi trascinando l'immagine, ignora il click per evitare di togliere lo zoom per errore
             if (mouseMoved) {
                 mouseMoved = false;
                 return;
@@ -131,27 +136,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const rect = lightboxImg.getBoundingClientRect();
             
-            if (!isZoomed) {
-                // Calcola le coordinate dove hai cliccato rispetto all'immagine
+            if (currentScale === 1) {
                 const xClick = e.clientX - rect.left;
                 const yClick = e.clientY - rect.top;
                 
-                // Centra lo zoom esattamente nel punto in cui si trova il mouse
                 pointX = ((rect.width / 2) - xClick) * (zoomLevel - 1);
                 pointY = ((rect.height / 2) - yClick) * (zoomLevel - 1);
-                
-                isZoomed = true;
+                currentScale = zoomLevel;
             } else {
-                // Secondo click: ripristina la dimensione originale
                 resetZoom();
             }
             
             applyZoomTransform();
         });
 
-        // 2. Trascinamento immagine zoomata da PC (Mouse Drag)
+        // 2. Trascinamento PC (Mouse Drag)
         lightboxImg.addEventListener("mousedown", function(e) {
-            if (isZoomed) {
+            if (currentScale > 1) {
                 e.preventDefault();
                 startX = e.clientX - pointX;
                 startY = e.clientY - pointY;
@@ -170,7 +171,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     document.removeEventListener("mousemove", onMouseMove);
                     document.removeEventListener("mouseup", onMouseUp);
                     panning = false;
-                    if (isZoomed) lightboxImg.style.cursor = 'grab';
+                    if (currentScale > 1) lightboxImg.style.cursor = 'grab';
                 }
 
                 document.addEventListener("mousemove", onMouseMove);
@@ -178,18 +179,48 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
 
-        // 3. Trascinamento & Doppio Tap per Mobile
+        // 3. ZOOM MOBILE: Pinch-To-Zoom (2 dita) e Trascinamento (1 dito)
         lightboxImg.addEventListener("touchstart", function(e) {
-            if (e.touches.length === 1 && isZoomed) {
+            if (e.touches.length === 2) {
+                // Avvia Pinch-To-Zoom con due dita
+                e.preventDefault();
+                initialPinchDistance = Math.hypot(
+                    e.touches[0].clientX - e.touches[1].clientX,
+                    e.touches[0].clientY - e.touches[1].clientY
+                );
+                initialPinchScale = currentScale;
+            } else if (e.touches.length === 1 && currentScale > 1) {
+                // Avvia trascinamento con un dito quando la foto è zoomata
                 panning = true;
                 startX = e.touches[0].clientX - pointX;
                 startY = e.touches[0].clientY - pointY;
             }
-        }, { passive: true });
+        }, { passive: false });
 
         lightboxImg.addEventListener("touchmove", function(e) {
-            if (e.touches.length === 1 && panning && isZoomed) {
-                e.preventDefault(); // Impedisce lo scroll di pagina durante il drag
+            if (e.touches.length === 2 && initialPinchDistance > 0) {
+                // Calcola lo zoom durante il pinch
+                e.preventDefault();
+                const currentDistance = Math.hypot(
+                    e.touches[0].clientX - e.touches[1].clientX,
+                    e.touches[0].clientY - e.touches[1].clientY
+                );
+
+                let newScale = initialPinchScale * (currentDistance / initialPinchDistance);
+                if (newScale < minScale) newScale = minScale;
+                if (newScale > maxScale) newScale = maxScale;
+
+                currentScale = newScale;
+
+                if (currentScale === 1) {
+                    pointX = 0;
+                    pointY = 0;
+                }
+
+                applyZoomTransform();
+            } else if (e.touches.length === 1 && panning && currentScale > 1) {
+                // Sposta l'immagine durante il trascinamento ad un dito
+                e.preventDefault();
                 pointX = e.touches[0].clientX - startX;
                 pointY = e.touches[0].clientY - startY;
                 applyZoomTransform();
@@ -199,22 +230,30 @@ document.addEventListener("DOMContentLoaded", function () {
         lightboxImg.addEventListener("touchend", function(e) {
             panning = false;
             
-            // Doppio tap rapido da mobile per lo zoom nel punto toccato
+            if (e.touches.length < 2) {
+                initialPinchDistance = 0;
+            }
+
+            // Se lo zoom si è ridotto quasi a 1, ripristina la posizione normale
+            if (currentScale < 1.05) {
+                resetZoom();
+            }
+
+            // Doppio tap rapido da mobile per Zoom / Unzoom nel punto toccato
             let currentTime = new Date().getTime();
             let tapLength = currentTime - lastTap;
-            if (tapLength < 300 && tapLength > 0 && e.changedTouches.length === 1) {
+            if (tapLength < 300 && tapLength > 0 && e.changedTouches.length === 1 && e.touches.length === 0) {
                 const rect = lightboxImg.getBoundingClientRect();
                 const touchX = e.changedTouches[0].clientX;
                 const touchY = e.changedTouches[0].clientY;
 
-                if (!isZoomed) {
+                if (currentScale === 1) {
                     const xClick = touchX - rect.left;
                     const yClick = touchY - rect.top;
 
                     pointX = ((rect.width / 2) - xClick) * (zoomLevel - 1);
                     pointY = ((rect.height / 2) - yClick) * (zoomLevel - 1);
-
-                    isZoomed = true;
+                    currentScale = zoomLevel;
                 } else {
                     resetZoom();
                 }
@@ -234,13 +273,13 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         lightboxModal.addEventListener('touchstart', e => {
-            if (!isZoomed && e.touches.length === 1) { 
+            if (currentScale === 1 && e.touches.length === 1) { 
                 touchStartX = e.changedTouches[0].screenX;
             }
         }, { passive: true });
 
         lightboxModal.addEventListener('touchend', e => {
-            if (!isZoomed && e.changedTouches.length === 1) {
+            if (currentScale === 1 && e.changedTouches.length === 1) {
                 touchEndX = e.changedTouches[0].screenX;
                 handleSwipe();
             }
@@ -248,7 +287,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function handleSwipe() {
-        if (isZoomed) return; 
+        if (currentScale > 1) return; 
         const swipeThreshold = 50; 
         if (touchEndX < touchStartX - swipeThreshold) nextImage();
         if (touchEndX > touchStartX + swipeThreshold) prevImage();
