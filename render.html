@@ -1,101 +1,13 @@
+<!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perception3D - Render</title>
-    <!-- Collegamento a Google Fonts -->
-    <link rel="preconnect" href="https://googleapis.com">
-    <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com" rel="stylesheet">
     <!-- Foglio di stile unificato del sito -->
     <link rel="stylesheet" href="style.css">
-    
-    <style>
-        .lightbox-modal {
-            display: none;
-            position: fixed;
-            z-index: 9999;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(30, 32, 34, 0.95);
-            justify-content: center;
-            align-items: center;
-            touch-action: none;
-        }
-        .lightbox-content {
-            max-width: 85%;
-            max-height: 85%;
-            border-radius: 4px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            animation: zoomIn 0.3s ease;
-            user-select: none;
-            -webkit-user-drag: none;
-        }
-        .lightbox-close {
-            position: absolute;
-            top: 30px;
-            right: 40px;
-            color: #ffffff;
-            font-size: 40px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: color 0.2s;
-            z-index: 10001;
-        }
-        .lightbox-close:hover {
-            color: var(--beige-dark);
-        }
-
-        /* STILE FRECCE DI NAVIGAZIONE PER MOUSE */
-        .lightbox-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #ffffff;
-            font-size: 45px;
-            font-weight: bold;
-            cursor: pointer;
-            padding: 15px 25px;
-            user-select: none;
-            transition: all 0.2s ease;
-            z-index: 10000;
-            background-color: rgba(0, 0, 0, 0.2);
-            border-radius: 4px;
-        }
-        .lightbox-arrow:hover {
-            color: var(--beige-dark);
-            background-color: rgba(0, 0, 0, 0.5);
-        }
-        .arrow-left {
-            left: 20px;
-        }
-        .arrow-right {
-            right: 20px;
-        }
-
-        @keyframes zoomIn {
-            from { transform: scale(0.9); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-
-        .scheda-nascosta {
-            display: none !important;
-        }
-
-        @media (max-width: 768px) {
-            .lightbox-arrow {
-                display: none;
-            }
-            .lightbox-close {
-                top: 20px;
-                right: 25px;
-            }
-        }
-    </style>
 </head>
-<body>
+<body class="page-render">
 
     <header>
         <div class="header-content">
@@ -105,399 +17,120 @@
     </header>
 
     <main>
-        <div class="portfolio-section" style="margin-top: 0; border-top: none; padding-top: 0;">
-            
-            <h4 style="text-transform: uppercase; margin-bottom: 20px; border-left: 4px solid var(--beige-dark); padding-left: 15px;">Render di progetti eseguiti</h4>
+        <div class="portfolio-section main-content-wrapper">
+            <h4 class="section-subtitle">Render di progetti eseguiti</h4>
             
             <div class="projects-grid">
                 
-<!-- ================= GRUPPO 1: SALONE ================= -->
-<div class="project-card" style="cursor: pointer;" onclick="mostraSlider('SALONE')">
-    <img src="immagini/RENDER SALONE/COPERTINA.jpg" alt="Render Progetto" class="gallery-img" data-gallery="SALONE">
-    <div class="project-info">
-        <h5>SALONE<br></h5>
-    </div>
-</div>
-
-<!-- Queste schede rimangono invisibili nella pagina, ma lo script le caricherà nel lightbox per lo swipe -->
-<div class="project-card scheda-nascosta" style="display: none;">
-    <img src="immagini/RENDER SALONE/1.jpg" alt="Render Nascosto 1" class="gallery-img" data-gallery="SALONE">
-</div>
-
-<div class="project-card scheda-nascosta" style="display: none;">
-    <img src="immagini/RENDER SALONE/3.jpg" alt="Render Nascosto 3" class="gallery-img" data-gallery="SALONE">
-</div>
-
-<div class="project-card scheda-nascosta" style="display: none;">
-    <img src="immagini/RENDER SALONE/4.jpg" alt="Render Nascosto 4" class="gallery-img" data-gallery="SALONE">
-</div>
-
-<div class="project-card scheda-nascosta" style="display: none;">
-    <img src="immagini/RENDER SALONE/6.jpg" alt="Render Nascosto 6" class="gallery-img" data-gallery="SALONE">
-</div>
-
-<div class="project-card scheda-nascosta" style="display: none;">
-    <img src="immagini/RENDER SALONE/7.jpg" alt="Render Nascosto 7" class="gallery-img" data-gallery="SALONE">
-</div>
-
-<div class="project-card scheda-nascosta" style="display: none;">
-    <img src="immagini/RENDER SALONE/8.jpg" alt="Render Nascosto 8" class="gallery-img" data-gallery="SALONE">
-</div>
-
-<div class="project-card scheda-nascosta" style="display: none;">
-    <img src="immagini/RENDER SALONE/9.jpg" alt="Render Nascosto 9" class="gallery-img" data-gallery="SALONE">
-</div>
-
-<div class="project-card scheda-nascosta" style="display: none;">
-    <img src="immagini/RENDER SALONE/11.jpg" alt="Render Nascosto 11" class="gallery-img" data-gallery="SALONE">
-</div>
-
-<div class="project-card scheda-nascosta" style="display: none;">
-    <img src="immagini/RENDER SALONE/12.jpg" alt="Render Nascosto 12" class="gallery-img" data-gallery="SALONE">
-</div>
-
-<div class="project-card scheda-nascosta" style="display: none;">
-    <img src="immagini/RENDER SALONE/13.jpg" alt="Render Nascosto 13" class="gallery-img" data-gallery="SALONE">
-</div>
-
-<div class="project-card scheda-nascosta" style="display: none;">
-    <img src="immagini/RENDER SALONE/14.jpg" alt="Render Nascosto 14" class="gallery-img" data-gallery="SALONE">
-</div>
-
-<div class="project-card scheda-nascosta" style="display: none;">
-    <img src="immagini/RENDER SALONE/15.jpg" alt="Render Nascosto 15" class="gallery-img" data-gallery="SALONE">
-</div>
-
-<div class="project-card scheda-nascosta" style="display: none;">
-    <img src="immagini/RENDER SALONE/16.jpg" alt="Render Nascosto 16" class="gallery-img" data-gallery="SALONE">
-</div>
-
-                    <!-- ================= GRUPPO 2: CENTRO ESTETICO ================= -->
+                <!-- ================= GRUPPO 1: SALONE ================= -->
                 <div class="project-card">
-                    <img src="immagini/RENDER CENTRO ESTETICO/1 MARMO.jpg" alt="Render Progetto" class="gallery-img" data-gallery="CENTRO ESTETICO" style="cursor: pointer;">
+                    <img src="immagini/RENDER SALONE/COPERTINA.jpg" alt="Render Salone Copertina" class="gallery-img" data-gallery="SALONE">
                     <div class="project-info">
+                        <h5>SALONE</h5>
+                    </div>
+                </div>
 
+                <!-- Schede nascoste per la galleria Lightbox -->
+                <div class="scheda-nascosta">
+                    <img src="immagini/RENDER SALONE/1.jpg" alt="Render Salone 1" class="gallery-img" data-gallery="SALONE">
+                    <img src="immagini/RENDER SALONE/3.jpg" alt="Render Salone 3" class="gallery-img" data-gallery="SALONE">
+                    <img src="immagini/RENDER SALONE/4.jpg" alt="Render Salone 4" class="gallery-img" data-gallery="SALONE">
+                    <img src="immagini/RENDER SALONE/6.jpg" alt="Render Salone 6" class="gallery-img" data-gallery="SALONE">
+                    <img src="immagini/RENDER SALONE/7.jpg" alt="Render Salone 7" class="gallery-img" data-gallery="SALONE">
+                    <img src="immagini/RENDER SALONE/8.jpg" alt="Render Salone 8" class="gallery-img" data-gallery="SALONE">
+                    <img src="immagini/RENDER SALONE/9.jpg" alt="Render Salone 9" class="gallery-img" data-gallery="SALONE">
+                    <img src="immagini/RENDER SALONE/11.jpg" alt="Render Salone 11" class="gallery-img" data-gallery="SALONE">
+                    <img src="immagini/RENDER SALONE/12.jpg" alt="Render Salone 12" class="gallery-img" data-gallery="SALONE">
+                    <img src="immagini/RENDER SALONE/13.jpg" alt="Render Salone 13" class="gallery-img" data-gallery="SALONE">
+                    <img src="immagini/RENDER SALONE/14.jpg" alt="Render Salone 14" class="gallery-img" data-gallery="SALONE">
+                    <img src="immagini/RENDER SALONE/15.jpg" alt="Render Salone 15" class="gallery-img" data-gallery="SALONE">
+                    <img src="immagini/RENDER SALONE/16.jpg" alt="Render Salone 16" class="gallery-img" data-gallery="SALONE">
+                </div>
+
+                <!-- ================= GRUPPO 2: CENTRO ESTETICO ================= -->
+                <div class="project-card">
+                    <img src="immagini/RENDER CENTRO ESTETICO/1 MARMO.jpg" alt="Render Centro Estetico" class="gallery-img" data-gallery="CENTRO ESTETICO">
+                    <div class="project-info">
                         <h5>CENTRO ESTETICO</h5>
                     </div>
                 </div>
 
-                <div class="project-card scheda-nascosta">
-                    <img src="immagini/RENDER CENTRO ESTETICO/2 MARMO.jpg" alt="Render Nascosto 1" class="gallery-img" data-gallery="CENTRO ESTETICO">
+                <div class="scheda-nascosta">
+                    <img src="immagini/RENDER CENTRO ESTETICO/2 MARMO.jpg" alt="Centro Estetico Marmo 2" class="gallery-img" data-gallery="CENTRO ESTETICO">
+                    <img src="immagini/RENDER CENTRO ESTETICO/3 MARMO.jpg" alt="Centro Estetico Marmo 3" class="gallery-img" data-gallery="CENTRO ESTETICO">
+                    <img src="immagini/RENDER CENTRO ESTETICO/4 MARMO.jpg" alt="Centro Estetico Marmo 4" class="gallery-img" data-gallery="CENTRO ESTETICO">
+                    <img src="immagini/RENDER CENTRO ESTETICO/5 MARMO.jpg" alt="Centro Estetico Marmo 5" class="gallery-img" data-gallery="CENTRO ESTETICO">
+                    <img src="immagini/RENDER CENTRO ESTETICO/7 MARMO.jpg" alt="Centro Estetico Marmo 7" class="gallery-img" data-gallery="CENTRO ESTETICO">
+                    <img src="immagini/RENDER CENTRO ESTETICO/1 ROSA.jpg" alt="Centro Estetico Rosa 1" class="gallery-img" data-gallery="CENTRO ESTETICO">
+                    <img src="immagini/RENDER CENTRO ESTETICO/2 ROSA.jpg" alt="Centro Estetico Rosa 2" class="gallery-img" data-gallery="CENTRO ESTETICO">
+                    <img src="immagini/RENDER CENTRO ESTETICO/3 ROSA.jpg" alt="Centro Estetico Rosa 3" class="gallery-img" data-gallery="CENTRO ESTETICO">
+                    <img src="immagini/RENDER CENTRO ESTETICO/4 ROSA.jpg" alt="Centro Estetico Rosa 4" class="gallery-img" data-gallery="CENTRO ESTETICO">
+                    <img src="immagini/RENDER CENTRO ESTETICO/1 LEGNO.jpg" alt="Centro Estetico Legno 1" class="gallery-img" data-gallery="CENTRO ESTETICO">
+                    <img src="immagini/RENDER CENTRO ESTETICO/2 LEGNO.jpg" alt="Centro Estetico Legno 2" class="gallery-img" data-gallery="CENTRO ESTETICO">
+                    <img src="immagini/RENDER CENTRO ESTETICO/3 LEGNO.jpg" alt="Centro Estetico Legno 3" class="gallery-img" data-gallery="CENTRO ESTETICO">
+                    <img src="immagini/RENDER CENTRO ESTETICO/4 LEGNO (NO).jpg" alt="Centro Estetico Legno 4" class="gallery-img" data-gallery="CENTRO ESTETICO">
+                    <img src="immagini/RENDER CENTRO ESTETICO/5 LEGNO.jpg" alt="Centro Estetico Legno 5" class="gallery-img" data-gallery="CENTRO ESTETICO">
                 </div>
 
-                  <div class="project-card scheda-nascosta">
-                    <img src="immagini/RENDER CENTRO ESTETICO/3 MARMO.jpg" alt="Render Nascosto 1" class="gallery-img" data-gallery="CENTRO ESTETICO">
-                </div>
-
-                <div class="project-card scheda-nascosta">
-                    <img src="immagini/RENDER CENTRO ESTETICO/4 MARMO.jpg" alt="Render Nascosto 1" class="gallery-img" data-gallery="CENTRO ESTETICO">
-                </div>
-
-                <div class="project-card scheda-nascosta">
-                    <img src="immagini/RENDER CENTRO ESTETICO/5 MARMO.jpg" alt="Render Nascosto 1" class="gallery-img" data-gallery="CENTRO ESTETICO">
-                </div>
-
-                <div class="project-card scheda-nascosta">
-                    <img src="immagini/RENDER CENTRO ESTETICO/7 MARMO.jpg" alt="Render Nascosto 1" class="gallery-img" data-gallery="CENTRO ESTETICO">
-                </div>
-
-                  <div class="project-card scheda-nascosta">
-                    <img src="immagini/RENDER CENTRO ESTETICO/1 ROSA.jpg" alt="Render Nascosto 1" class="gallery-img" data-gallery="CENTRO ESTETICO">
-                </div>
-
-                  <div class="project-card scheda-nascosta">
-                    <img src="immagini/RENDER CENTRO ESTETICO/2 ROSA.jpg" alt="Render Nascosto 1" class="gallery-img" data-gallery="CENTRO ESTETICO">
-                </div>
-
-                <div class="project-card scheda-nascosta">
-                    <img src="immagini/RENDER CENTRO ESTETICO/3 ROSA.jpg" alt="Render Nascosto 1" class="gallery-img" data-gallery="CENTRO ESTETICO">
-                </div>
-
-                 <div class="project-card scheda-nascosta">
-                    <img src="immagini/RENDER CENTRO ESTETICO/4 ROSA.jpg" alt="Render Nascosto 1" class="gallery-img" data-gallery="CENTRO ESTETICO">
-                </div>
-
-                 <div class="project-card scheda-nascosta">
-                    <img src="immagini/RENDER CENTRO ESTETICO/1 LEGNO.jpg" alt="Render Nascosto 1" class="gallery-img" data-gallery="CENTRO ESTETICO">
-                </div>
-
-                  <div class="project-card scheda-nascosta">
-                    <img src="immagini/RENDER CENTRO ESTETICO/2 LEGNO.jpg"Render Nascosto 1" class="gallery-img" data-gallery="CENTRO ESTETICO">
-                </div>
-
-                <div class="project-card scheda-nascosta">
-                    <img src="immagini/RENDER CENTRO ESTETICO/3 LEGNO.jpg" alt="Render Nascosto 1" class="gallery-img" data-gallery="CENTRO ESTETICO">
-                </div>
-
-                
-                 <div class="project-card scheda-nascosta">
-                    <img src="immagini/RENDER CENTRO ESTETICO/4 LEGNO (NO).jpg" alt="Render Nascosto 1" class="gallery-img" data-gallery="CENTRO ESTETICO">
-                </div>
-
-                  <div class="project-card scheda-nascosta">
-                    <img src="immagini/RENDER CENTRO ESTETICO/5 LEGNO.jpg"Render Nascosto 1" class="gallery-img" data-gallery="CENTRO ESTETICO">
-                </div>
-
-
-
-
-                 <!-- ================= GRUPPO 3: B&B ================= -->
+                <!-- ================= GRUPPO 3: B&B ================= -->
                 <div class="project-card">
-                    <img src="immagini/B&B/PROTOTIPO STANZA 1/0001.jpg" alt="Render Progetto" class="gallery-img" data-gallery="B&B" style="cursor: pointer;">
+                    <img src="immagini/B&B/PROTOTIPO STANZA 1/0001.jpg" alt="Render B&B" class="gallery-img" data-gallery="B&B">
                     <div class="project-info">
-                        <h5>B&B<br></h5>
+                        <h5>B&amp;B</h5>
                     </div>
                 </div>
 
-                 <div class="project-card scheda-nascosta">
-                    <img src="immagini/B&B/PROTOTIPO STANZA 1/0002.jpg" alt="Render Nascosto 1" class="gallery-img" data-gallery="B&B">
+                <div class="scheda-nascosta">
+                    <img src="immagini/B&B/PROTOTIPO STANZA 1/0002.jpg" alt="B&B Stanza 1 - 02" class="gallery-img" data-gallery="B&B">
+                    <img src="immagini/B&B/PROTOTIPO STANZA 2/0002.jpg" alt="B&B Stanza 2 - 02" class="gallery-img" data-gallery="B&B">
+                    <img src="immagini/B&B/PROTOTIPO STANZA 2/0003.jpg" alt="B&B Stanza 2 - 03" class="gallery-img" data-gallery="B&B">
+                    <img src="immagini/B&B/PROTOTIPO STANZA 3/0004.jpg" alt="B&B Stanza 3 - 04" class="gallery-img" data-gallery="B&B">
+                    <img src="immagini/B&B/PROTOTIPO STANZA 2/0005.jpg" alt="B&B Stanza 2 - 05" class="gallery-img" data-gallery="B&B">
+                    <img src="immagini/B&B/PROTOTIPO STANZA 2/0006.jpg" alt="B&B Stanza 2 - 06" class="gallery-img" data-gallery="B&B">
+                    <img src="immagini/B&B/PROTOTIPO STANZA 2/0007.jpg" alt="B&B Stanza 2 - 07" class="gallery-img" data-gallery="B&B">
+                    <img src="immagini/B&B/PROTOTIPO STANZA 3/0002.jpg" alt="B&B Stanza 3 - 02" class="gallery-img" data-gallery="B&B">
+                    <img src="immagini/B&B/PROTOTIPO STANZA 3/0003.jpg" alt="B&B Stanza 3 - 03" class="gallery-img" data-gallery="B&B">
+                    <img src="immagini/B&B/PROTOTIPO STANZA 3/0004.jpg" alt="B&B Stanza 3 - 04" class="gallery-img" data-gallery="B&B">
+                    <img src="immagini/B&B/PROTOTIPO STANZA 3/0006.jpg" alt="B&B Stanza 3 - 06" class="gallery-img" data-gallery="B&B">
+                    <img src="immagini/B&B/PROTOTIPO STANZA 3/0007.jpg" alt="B&B Stanza 3 - 07" class="gallery-img" data-gallery="B&B">
+                    <img src="immagini/B&B/PROTOTIPO STANZA 3/0008.jpg" alt="B&B Stanza 3 - 08" class="gallery-img" data-gallery="B&B">
                 </div>
 
-                <div class="project-card scheda-nascosta">
-                    <img src="immagini/B&B/PROTOTIPO STANZA 2/0002.jpg" alt="Render Nascosto 1" class="gallery-img" data-gallery="B&B">
-                </div>
-
-                  <div class="project-card scheda-nascosta">
-                    <img src="immagini/B&B/PROTOTIPO STANZA 2/0003.jpg" alt="Render Nascosto 1" class="gallery-img" data-gallery="B&B">
-                </div>
-
-                <div class="project-card scheda-nascosta">
-                    <img src="immagini/B&B/PROTOTIPO STANZA 3/0004.jpg" alt="Render Nascosto 1" class="gallery-img" data-gallery="B&B">
-                </div>
-
-                  <div class="project-card scheda-nascosta">
-                    <img src="immagini/B&B/PROTOTIPO STANZA 2/0005.jpg" alt="Render Nascosto 1" class="gallery-img" data-gallery="B&B">
-                </div>
-
-                <div class="project-card scheda-nascosta">
-                    <img src="immagini/B&B/PROTOTIPO STANZA 2/0006.jpg" alt="Render Nascosto 1" class="gallery-img" data-gallery="B&B">
-                </div>
-
-                  <div class="project-card scheda-nascosta">
-                    <img src="immagini/B&B/PROTOTIPO STANZA 2/0007.jpg" alt="Render Nascosto 1" class="gallery-img" data-gallery="B&B">
-                </div>
-
-                  <div class="project-card scheda-nascosta">
-                    <img src="immagini/B&B/PROTOTIPO STANZA 3/0002.jpg" alt="Render Nascosto 1" class="gallery-img" data-gallery="B&B">
-                </div>
-
-                  <div class="project-card scheda-nascosta">
-                    <img src="immagini/B&B/PROTOTIPO STANZA 3/0003.jpg" alt="Render Nascosto 1" class="gallery-img" data-gallery="B&B">
-                </div>
-
-                <div class="project-card scheda-nascosta">
-                    <img src="immagini/B&B/PROTOTIPO STANZA 3/0004.jpg" alt="Render Nascosto 1" class="gallery-img" data-gallery="B&B">
-                </div>
-
-                <div class="project-card scheda-nascosta">
-                    <img src="immagini/B&B/PROTOTIPO STANZA 3/0006.jpg" alt="Render Nascosto 1" class="gallery-img" data-gallery="B&B">
-                </div>
-                <div class="project-card scheda-nascosta">
-                    <img src="immagini/B&B/PROTOTIPO STANZA 3/0007.jpg" alt="Render Nascosto 1" class="gallery-img" data-gallery="B&B">
-                </div>
-
-                <div class="project-card scheda-nascosta">
-                    <img src="immagini/B&B/PROTOTIPO STANZA 3/0008.jpg" alt="Render Nascosto 1" class="gallery-img" data-gallery="B&B">
-                </div>
-
-
-
-
-
-                          <!-- ================= GRUPPO 4: VILLETTE ================= -->
+                <!-- ================= GRUPPO 4: VILLETTE ================= -->
                 <div class="project-card">
-                    <img src="immagini/RENDER VILLETTE TAUNUS/Vista2.3_def.jpg" alt="Render Progetto" class="gallery-img" data-gallery="VILLETTE" style="cursor: pointer;">
+                    <img src="immagini/RENDER VILLETTE TAUNUS/Vista2.3_def.jpg" alt="Render Villette" class="gallery-img" data-gallery="VILLETTE">
                     <div class="project-info">
-                        <h5>VILLETTE<br></h5>
+                        <h5>VILLETTE</h5>
                     </div>
                 </div>
 
-                 <div class="project-card scheda-nascosta">
-                    <img src="immagini/RENDER VILLETTE TAUNUS/Vista2.1_def.jpg" alt="Render Nascosto 1" class="gallery-img" data-gallery="VILLETTE">
+                <div class="scheda-nascosta">
+                    <img src="immagini/RENDER VILLETTE TAUNUS/Vista2.1_def.jpg" alt="Villette Vista 2.1" class="gallery-img" data-gallery="VILLETTE">
+                    <img src="immagini/RENDER VILLETTE TAUNUS/Vista2.2_def.jpg" alt="Villette Vista 2.2" class="gallery-img" data-gallery="VILLETTE">
+                    <img src="immagini/RENDER VILLETTE TAUNUS/Vista1_def.jpg" alt="Villette Vista 1" class="gallery-img" data-gallery="VILLETTE">
                 </div>
 
-                <div class="project-card scheda-nascosta">
-                    <img src="immagini/RENDER VILLETTE TAUNUS/Vista2.2_def.jpg" alt="Render Nascosto 1" class="gallery-img" data-gallery="VILLETTE">
-                </div>
+            </div> <!-- /projects-grid -->
+        </div> <!-- /portfolio-section -->
 
-                
-                <div class="project-card scheda-nascosta">
-                    <img src="immagini/RENDER VILLETTE TAUNUS/Vista1_def.jpg" alt="Render Nascosto 1" class="gallery-img" data-gallery="VILLETTE">
-                </div>
-
-<section style="text-align: center; margin-top: 50px;">
-            <a href="ristrutturazioni.html" class="btn-back">&larr; Torna indietro</a>
-        </section>
+        <div class="back-link-container">
+            <a href="portfolio.html" class="btn-back">&larr; Torna al Portfolio</a>
+        </div>
     </main>
 
+    <!-- STRUTTURA LIGHTBOX -->
     <div id="lightbox" class="lightbox-modal">
         <span class="lightbox-close" id="close-btn">&times;</span>
-        <span class="lightbox-arrow arrow-left" id="prev-btn">❮</span>
+        <span class="lightbox-arrow arrow-left" id="prev-btn">&#10094;</span>
         <img class="lightbox-content" id="lightbox-img" src="" alt="Zoom">
-        <span class="lightbox-arrow arrow-right" id="next-btn">❯</span>
+        <span class="lightbox-arrow arrow-right" id="next-btn">&#10095;</span>
     </div>
 
     <footer>
         <p>&copy; 2026 - Perception3D. Tutti i diritti riservati.</p>
     </footer>
 
-    <script>
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightbox-img');
-        const closeBtn = document.getElementById('close-btn');
-        const prevBtn = document.getElementById('prev-btn');
-        const nextBtn = document.getElementById('next-btn');
-        
-        let immaginiFiltrate = [];
-        let indiceAttuale = 0;
-
-        let touchStartX = 0;
-        let touchEndX = 0;
-        
-        // Supporto zoom nativo
-        let zoomAttivo = false;
-        let ultimoTocco = 0;
-
-        // Inizializza gli eventi sulle immagini
-        document.querySelectorAll('.gallery-img').forEach((img) => {
-            img.addEventListener('click', () => {
-                const tipoGalleria = img.getAttribute('data-gallery');
-                
-                // ISOLAMENTO DEI LAVORI: Filtra solo le immagini che appartengono allo stesso gruppo (SALONE, nancy, barbara ecc)
-                immaginiFiltrate = Array.from(document.querySelectorAll(`.gallery-img[data-gallery="${tipoGalleria}"]`));
-                indiceAttuale = immaginiFiltrate.indexOf(img);
-                
-                mostraImmagine();
-                lightbox.style.display = 'flex';
-                resettaZoom(); // Resetta lo zoom all'apertura
-            });
-        });
-
-        function mostraImmagine() {
-            lightboxImg.src = immaginiFiltrate[indiceAttuale].src;
-            lightboxImg.alt = immaginiFiltrate[indiceAttuale].alt;
-            resettaZoom(); // Resetta lo zoom quando si cambia foto
-        }
-
-        function fotoSuccessiva() {
-            if (immaginiFiltrate.length === 0) return;
-            indiceAttuale = (indiceAttuale + 1) % immaginiFiltrate.length;
-            mostraImmagine();
-        }
-
-        function fotoPrecedente() {
-            if (immaginiFiltrate.length === 0) return;
-            indiceAttuale = (indiceAttuale - 1 + immaginiFiltrate.length) % immaginiFiltrate.length;
-            mostraImmagine();
-        }
-
-        function chiudiLightbox() {
-            lightbox.style.display = 'none';
-            resettaZoom();
-        }
-
-        // Eventi click controlli frecce e chiusura
-        closeBtn.addEventListener('click', chiudiLightbox);
-        nextBtn.addEventListener('click', (e) => { e.stopPropagation(); fotoSuccessiva(); });
-        prevBtn.addEventListener('click', (e) => { e.stopPropagation(); fotoPrecedente(); });
-        lightbox.addEventListener('click', chiudiLightbox); 
-        lightboxImg.addEventListener('click', (e) => { e.stopPropagation(); }); 
-
-        // Gestione tastiera PC
-        document.addEventListener('keydown', (e) => {
-            if (lightbox.style.display === 'flex') {
-                if (e.key === 'Escape') chiudiLightbox();
-                if (e.key === 'ArrowRight') fotoSuccessiva();
-                if (e.key === 'ArrowLeft') fotoPrecedente();
-            }
-        });
-
- // ================= GESTIONE UNIFICATA TOUCH: SWIPE, PINCH-TO-ZOOM E NAVIGAZIONE DETTAGLI =================
-        let scalaCorrente = 1;
-        let scalaIniziale = 1;
-        let distanzaIniziale = 0;
-        
-        let posX = 0, posY = 0;
-        let startX = 0, startY = 0;
-        let isDragging = false;
-
-        lightbox.addEventListener('touchstart', (e) => {
-            if (e.touches.length === 1) {
-                // Gestione Swipe (a un dito) o trascinamento se l'immagine è già zoomata
-                touchStartX = e.touches[0].clientX;
-                if (scalaCorrente > 1) {
-                    isDragging = true;
-                    startX = e.touches[0].clientX - posX;
-                    startY = e.touches[0].clientY - posY;
-                }
-            } else if (e.touches.length === 2) {
-                // Rilevamento inizio zoom con due dita (Pinch)
-                isDragging = false;
-                distanzaIniziale = Math.hypot(
-                    e.touches[0].clientX - e.touches[1].clientX,
-                    e.touches[0].clientY - e.touches[1].clientY
-                );
-                scalaIniziale = scalaCorrente;
-            }
-        }, { passive: true });
-
-        lightbox.addEventListener('touchmove', (e) => {
-            if (e.touches.length === 1 && isDragging) {
-                // Spostamento fluido nei dettagli della foto quando è ingrandita
-                posX = e.touches[0].clientX - startX;
-                posY = e.touches[0].clientY - startY;
-                applicaTrasformazione();
-            } else if (e.touches.length === 2) {
-                // Calcolo millimetrico dello zoom in base alla distanza tra le due dita
-                const distanzaCorrente = Math.hypot(
-                    e.touches[0].clientX - e.touches[1].clientX,
-                    e.touches[0].clientY - e.touches[1].clientY
-                );
-                const fattore = distanzaCorrente / distanzaIniziale;
-                // Massimo ingrandimento limitato a 1.5x (non esagerato, mantiene la nitidezza)
-                scalaCorrente = Math.min(Math.max(scalaIniziale * fattore, 1), 2.5); 
-                applicaTrasformazione();
-            }
-        }, { passive: true });
-
-        lightbox.addEventListener('touchend', (e) => {
-            isDragging = false;
-            if (e.touches.length === 0) {
-                if (scalaCorrente === 1) {
-                    // Se la foto è a dimensione normale, calcola lo swipe laterale
-                    touchEndX = e.changedTouches[0].clientX;
-                    gestisciSwipe();
-                }
-            }
-        }, { passive: true });
-
-        function gestisciSwipe() {
-            const tolleranzaSwipe = 60; 
-            if (touchStartX - touchEndX > tolleranzaSwipe) {
-                fotoSuccessiva(); // Rimanda alla foto successiva
-            }
-            if (touchEndX - touchStartX > tolleranzaSwipe) {
-                fotoPrecedente(); // Torna alla foto precedente
-            }
-        }
-
-        function applicaTrasformazione() {
-            // Se stringi le dita e torni a 1, azzera i movimenti per non decentrare la foto successiva
-            if (scalaCorrente <= 1) {
-                scalaCorrente = 1;
-                posX = 0;
-                posY = 0;
-            }
-            lightboxImg.style.transform = `translate(${posX}px, ${posY}px) scale(${scalaCorrente})`;
-        }
-
-        function resettaZoom() {
-            scalaCorrente = 1;
-            posX = 0;
-            posY = 0;
-            applicaTrasformazione();
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
 

@@ -1,461 +1,1600 @@
 :root {
+
     --beige-light: #79705b;   /* Sfondo generale morbido */
+
     --beige-medium: #39342c;  /* Elementi secondari e bordi */
+
     --beige-dark: #c5b9a5;    /* Dettagli e stati hover */
+
     --charcoal: #1e2022;      /* Testo e intestazioni per forte contrasto */
+
     --white: #ffffff;
+
 }
+
+
 
 body {
+
     font-family: 'Segoe UI', Arial, sans-serif;
+
     margin: 0;
+
     padding: 0;
+
     background-color: var(--beige-dark) !important; /* CORREZIONE: Sfondo fisso per mostrare i bordi pagina */
+
     color: var(--charcoal);
+
     overflow-x: hidden; /* Evita fastidiosi scorrimenti laterali */
+
     width: 100%;
+
 }
+
+
 
 /* 2. INTESTAZIONE (HEADER) CON EFFETTO DINAMICO */
+
 header {
+
     text-align: center;
+
     padding: 80px 20px;
+
     position: relative;
+
     box-sizing: border-box;
-    
+
+   
+
     /* APPLICA IL GRADIENTE SULL'INTERO RETTANGOLO GRANDE */
+
     background: linear-gradient(
-        to right, 
-        #ffffff 10%, 
-        #c5b9a5 50%, 
+
+        to right,
+
+        #ffffff 10%,
+
+        #c5b9a5 50%,
+
         #ffffff 90%
+
     ) !important;
+
     background-size: 200% 100% !important;
-    
+
+   
+
     /* Attiva l'animazione della luce su tutto l'header ogni 5 secondi */
+
     animation: luceRettangoloGrande 5s linear infinite !important;
+
 }
+
+
 
 /* Logica dello scorrimento della luce sull'intero rettangolo grande */
+
 @keyframes luceRettangoloGrande {
+
     0% {
+
         background-position: 200% 0;
+
     }
+
     100% {
+
         background-position: -200% 0;
+
     }
+
 }
+
+
 
 header h1, .titolo-animato {
+
     margin: 0 auto;
-    font-size: 3rem;
-    text-transform: uppercase;
+
+    font-size: 4rem !important;            /* Dimensione PC */
+
+    letter-spacing: 7px !important;        /* Spaziatura PC */
+
+    text-transform: uppercase !important;
+
     font-family: 'Orbitron', sans-serif !important;
-    letter-spacing: 6px !important;
+
     font-weight: 700 !important;
-    display: table;
-    max-width: 100%; /* Sostituito width: max-content che rompeva il layout mobile */
+
+    display: block !important;
+
+    width: 100% !important;
+
+    text-align: center !important;
+
     box-sizing: border-box;
-    padding: 10px 10px;
-    word-wrap: break-word; /* Forza il testo a capo sui telefoni */
-    
+
+    padding: 10px 0;
+
+   
+
+    /* IMPEDISCE TASSATIVAMENTE L'ANDATA A CAPO */
+
+    white-space: nowrap !important;
+
+    word-wrap: normal !important;
+
+   
+
     /* IL TESTO DIVENTA CHARCOAL SOLIDO */
+
     color: var(--charcoal) !important;
+
     -webkit-text-fill-color: var(--charcoal) !important;
-    
+
+   
+
     /* Rimuove qualsiasi sfondo o ritaglio dal testo singolo */
+
     background: none !important;
+
     -webkit-background-clip: initial !important;
+
     background-clip: initial !important;
+
     animation: none !important;
+
 }
+
+
 
 header p {
+
     margin: 15px 0 0 0;
+
     font-size: 1.1rem;
+
     color: var(--beige-medium);
+
     text-transform: uppercase;
+
     letter-spacing: 1px;
+
 }
 
-/* 3. CONTENUTO CENTRAL (MAIN) STILE MINIMALE */
+
+
+/* 3. CONTENUTO CENTRALE (MAIN) STILE MINIMALE */
+
 main {
-    max-width: 900px;
+
+    max-width: 1000px;
+
     margin: 50px auto;
+
     padding: 40px;
+
     background-color: var(--white);
+
     border-radius: 12px;
+
     border: 1px solid var(--beige-medium) !important; /* CORREZIONE: Bordo inserito per marcare i contorni */
+
     box-shadow: 0 10px 40px rgba(30, 32, 34, 0.08) !important; /* CORREZIONE: Ombra marcata per staccare lo sfondo */
+
     animation: fadeInUp 0.8s ease-out;
+
     box-sizing: border-box; /* Impedisce al padding di allargare il blocco oltre il 100% */
+
 }
+
+
 
 @keyframes fadeInUp {
+
     from {
+
         opacity: 0;
+
         transform: translateY(20px);
+
     }
+
     to {
+
         opacity: 1;
+
         transform: translateY(0);
+
     }
+
 }
+
+
 
 /* 4. STRUTTURA DEI TESTI BIOGRAFICI */
+
 .profile-header h3 {
+
     font-size: 1.5rem;
+
     color: var(--charcoal);
+
     margin-bottom: 35px;
+
     border-left: 4px solid var(--beige-dark); /* Linea di accento beige a sinistra */
+
     padding-left: 15px;
+
 }
+
+
 
 .bio-section h4 {
+
     font-size: 1.25rem;
+
     color: var(--charcoal);
+
     margin-top: 35px;
+
     margin-bottom: 12px;
+
     font-weight: 700;
+
 }
+
+
 
 .bio-section p {
+
     font-size: 1.05rem;
+
     line-height: 1.7;
+
     color: #4a4a4a;
+
     margin-bottom: 20px;
+
     text-align: justify;
+
 }
+
+
 
 /* Lista Software stilizzata */
+
 .software-list {
+
     list-style-type: none; /* Togliamo i pallini brutti */
+
     padding-left: 0;
+
 }
+
+
 
 .software-list li {
+
     font-size: 1.05rem;
+
     line-height: 1.6;
+
     margin-bottom: 15px;
+
     padding-left: 25px;
+
     position: relative;
+
     transition: transform 0.2s ease;
+
 }
+
+
 
 /* Creiamo un pallino personalizzato beige per ogni voce */
+
 .software-list li::before {
+
     content: "■";
+
     position: absolute;
+
     left: 0;
+
     color: var(--beige-dark);
+
     font-size: 0.8rem;
+
     top: 2px;
+
 }
+
+
 
 /* Movimento quando passi sopra le voci dell'elenco */
+
 .software-list li:hover {
+
     transform: translateX(5px);
+
     color: var(--charcoal);
+
 }
+
+
 
 .software-list strong {
+
     color: var(--charcoal);
+
 }
+
+
 
 /* 5. GRIGLIA PORTFOLIO E SCHEDE "IN MOVIMENTO" */
+
 .portfolio-section {
+
     margin-top: 60px;
+
     border-top: 2px solid var(--beige-light);
+
     padding-top: 40px;
+
 }
+
+
 
 .projects-grid {
+
     display: grid;
+
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+
     gap: 30px;
+
 }
+
+
 
 .project-card {
+
     background-color: var(--white);
+
     border: 1px solid var(--beige-medium);
+
     border-radius: 8px;
+
     overflow: hidden;
+
     transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); /* Movimento ultra-fluido */
+
 }
+
+
 
 /* Effetto movimento e cambio colore sulla scheda */
+
 .project-card:hover {
+
     transform: translateY(-8px);
+
     border-color: var(--beige-dark);
+
     box-shadow: 0 15px 35px rgba(197, 185, 165, 0.2);
+
 }
+
+
 
 .project-card img {
+
     width: 100%;
+
     height: 220px;
+
     object-fit: cover;
+
     filter: grayscale(20%); /* Leggero filtro desaturato stile architettonico */
+
     transition: filter 0.4s ease, transform 0.4s ease;
+
+} 
+/* L'immagine prende colore e si ingrandisce leggermente al passaggio del mouse */
+
+.project-card:hover img {
+
+    filter: grayscale(0%);
+
+    transform: scale(1.03);
+
 }
 
-/* L'immagine prende colore e si ingrandisce leggermente al passaggio del mouse */
-.project-card:hover img {
-    filter: grayscale(0%);
-    transform: scale(1.03);
-}
+
 
 .project-info {
+
     padding: 25px;
+
     background-color: var(--white);
+
 }
+
+
 
 .project-info h5 {
+
     margin: 0 0 10px 0;
+
     font-size: 1.2rem;
+
     color: var(--charcoal);
+
 }
+
+
 
 /* 6. I PULSANTI DI NAVIGAZIONE - ALLINEATI CON LOGICA TEMA SCURO */
+
 .btn-portfolio, .btn-back, .btn-write-here {
+
     display: inline-block;
+
     background-color: var(--charcoal) !important; /* Sfondo Antracite scuro di default */
+
     color: var(--white) !important;               /* Testo Bianco per forte contrasto */
+
     padding: 14px 30px !important;
+
     font-size: 1rem;
+
     font-weight: 700;
+
     text-decoration: none;
+
     border-radius: 4px;
+
     letter-spacing: 1px;
+
     text-transform: uppercase;
-    border: 2px solid var(--charcoal) !important;  
+
+    border: 2px solid var(--charcoal) !important;
+
     cursor: pointer;
+
     transition: all 0.3s ease;
+
     box-sizing: border-box;
+
     max-width: 100%;
+
     text-align: center;
+
 }
+
+
 
 /* Effetto al passaggio del mouse per TUTTI i pulsanti del sito */
+
 .btn-portfolio:hover, .btn-back:hover, .btn-write-here:hover {
+
     background-color: var(--beige-dark) !important;   /* Lo sfondo diventa beige */
+
     color: var(--charcoal) !important;                  /* Il testo diventa scuro */
+
     border-color: var(--beige-dark) !important;
+
     transform: translateY(-2px) scale(1.02);
+
 }
+
+
 
 /* 8. CONTENITORE POSIZIONAMENTO PULSANTE CONTATTI */
+
 .header-action-container {
-    margin-top: 25px; 
+
+    margin-top: 25px;
+
     margin-bottom: 20px;
+
 }
+
+
 
 /* 7. FOOTER */
+
 footer {
+
     text-align: center;
+
     padding: 30px;
+
     background-color: var(--charcoal);
+
     color: var(--white);
+
     font-size: 0.85rem;
+
     letter-spacing: 1px;
+
     box-sizing: border-box;
+
 }        
+
 /* ================= SEZIONE CONTATTI, LOGO E TRANSIZIONI ================= */
+
 .textarea-full-group textarea {
+
     width: 100% !important;
+
     min-height: 400px; /* La rende molto alta, quasi a coprire lo schermo */
+
     border: none !important; /* RIMOZIONE TOTALE DEI BORDI */
+
     background: transparent !important;
+
     padding: 10px 0 !important;
+
     font-size: 1.15rem !important;
+
     line-height: 1.6;
+
     resize: none; /* Impedisce all'utente di ridimensionarla deformando il sito */
+
     box-shadow: none !important;
+
     box-sizing: border-box;
+
 }
+
+
 
 .textarea-full-group textarea:focus {
+
     outline: none !important;
+
 }
+
+
 
 /* Barra inferiore per il pulsante di invio */
+
 .bottom-action-bar {
+
     padding: 30px 40px;
+
     background-color: #faf8f5; /* Un tono leggermente diverso per staccare il tasto di invio */
+
     border-top: 1px solid var(--beige-medium);
+
     box-sizing: border-box;
-}   
+
+}  
+
+
 
 /* 10. CENTRAGGIO ASSOLUTO DEL LOGO AZIENDALE */
+
 .logo-container {    
+
     display: flex !important;
-    justify-content: center !important; 
+
+    justify-content: center !important;
+
     align-items: center !important;
-    width: 100% !important;             
-    margin: 40px auto !important;       
+
+    width: 100% !important;            
+
+    margin: 40px auto !important;      
+
     text-align: center !important;
+
     box-sizing: border-box;
+
 }
+
+
 
 .main-logo {
-    width: 100% !important;             
-    max-width: 100% !important;         
+
+    width: 100% !important;            
+
+    max-width: 100% !important;        
+
     height: auto !important;            
+
     display: block !important;
-    transform: scale(1) !important;     
+
+    transform: scale(1) !important;    
+
     opacity: 1 !important;              
+
 }
+
+
 
 /* ================= 11. EFFETTI DI TRANSIZIONE SCHERMATA E ZOOM SLIDER ================= */
+
 body.sfondo-transizione {
+
     background-color: var(--beige-light) !important;
+
     transition: background-color 0.5s ease-in-out;
+
 }
+
+
 
 main.main-full-width {
+
     max-width: 100% !important;
+
     margin: 20px 40px !important;
+
     padding: 40px 0 !important;
+
     transition: max-width 0.4s ease-in-out;
+
     box-sizing: border-box;
+
 }
+
+
 
 .projects-grid-full {
+
     display: grid;
+
     grid-template-columns: repeat(3, 1fr);
+
     gap: 20px;
+
     padding: 0 40px;
-    margin-top: 20px; 
+
+    margin-top: 20px;
+
     box-sizing: border-box;
+
 }
+
+
 
 .project-card.foto-slide {
+
     opacity: 0 !important;
+
     transform: scale(0) !important;
+
     animation: zoomSlider 1s cubic-bezier(0.34, 1.3, 0.64, 1) 0.2s forwards !important;
+
 }
+
+
 
 @keyframes zoomSlider {
+
     to {
+
         opacity: 1 !important;
+
         transform: scale(1) !important;
+
     }
+
 }
+
+
 
 header .btn-portfolio {
+
     margin-top: 25px;
+
 }
+
+
 
 .project-card.foto-slide.zoom {
+
     opacity: 1 !important;
+
     transform: scale(1) !important;
+
 }
+
+
 
 /* ================= PATCH INTEGRATIVA: SBLOCCO GRAFICO PER LIGHTBOX MOBILE ================= */
+
 .lightbox-content {
+
     transition: transform 0.2s ease-out !important; /* Rende lo zoom col doppio tocco fluido */
+
     max-width: 85% !important;
+
     max-height: 85% !important;
+
     display: block;
+
 }
+
+
 
 #lightbox {
+
     overflow: hidden !important;
+
     /* Consente lo swipe ma evita che la pagina web sotto si muova a vuoto */
-    touch-action: pan-x pan-y !important; 
+
+    touch-action: pan-x pan-y !important;
+
 }
 
+
+
 /* ================= 12. UNIFICAZIONE E OTTIMIZZAZIONE RESPONSIVA MOBILE ================= */
+
 @media screen and (max-width: 768px) {
-    
+
+   
+
     header h1, .titolo-animato {
-        font-size: 1.8rem !important;   
-        width: 100% !important;         
+
+        /* Adatta la dimensione al millimetro per tenere la parola intera su tutti gli smartphone */
+
+        font-size: clamp(1.2rem, 5.8vw, 2.2rem) !important;
+
+        letter-spacing: clamp(2px, 1.2vw, 5px) !important;
+
+        width: 100% !important;
+
+        max-width: 100% !important;
+
+        white-space: nowrap !important;   /* Impedisce l'andata a capo su mobile */
+
+        word-wrap: normal !important;
+
         display: block !important;
-        letter-spacing: 3px !important; 
+
+        text-align: center !important;
+
     }
+
+
 
     header p {
+
         font-size: 0.95rem !important;
+
     }
+
+
 
     main {
+
         width: 92% !important;        
-        margin: 20px auto !important; 
-        padding: 20px !important;     
+
+        margin: 20px auto !important;
+
+        padding: 20px !important;    
+
         box-sizing: border-box !important;
+
     }
+
+
 
     main.main-full-width {
-        width: 100% !important; 
+
+        width: 100% !important;
+
         max-width: 100% !important;
-        margin: 10px 0 !important; 
+
+        margin: 10px 0 !important;
+
         padding: 20px 0 !important;
+
         box-sizing: border-box !important;
+
     }
+
+
 
     .projects-grid {
+
         display: grid !important;
-        grid-template-columns: 1fr !important; 
+
+        grid-template-columns: 1fr !important;
+
         gap: 20px !important;
+
         padding: 0 10px !important;
+
         box-sizing: border-box !important;
+
     }
+
+
 
     .project-card img {
-        height: 180px !important; 
+
+        height: 180px !important;
+
     }
 
+
+
     .projects-grid-full {
-        display: flex !important;                 
+
+        display: flex !important;                
+
         overflow-x: auto !important;              
-        scroll-snap-type: x mandatory !important; 
+
+        scroll-snap-type: x mandatory !important;
+
         gap: 15px !important;
-        padding: 0 15px !important; 
+
+        padding: 0 15px !important;
+
         margin: 20px 0 0 0 !important;
-        -webkit-overflow-scrolling: touch !important; 
+
+        -webkit-overflow-scrolling: touch !important;
+
         width: 100% !important;
-        box-sizing: border-box !important; 
+
+        box-sizing: border-box !important;
+
     }
 
     .projects-grid-full .project-card.foto-slide {
-        flex: 0 0 82% !important; 
+
+        flex: 0 0 82% !important;
+
         max-width: 82% !important;
-        scroll-snap-align: center !important; 
-        opacity: 1 !important; 
+
+        scroll-snap-align: center !important;
+
+        opacity: 1 !important;
+
         transform: scale(1) !important;
+
     }
+
+
 
     .projects-grid-full .project-card.foto-slide img {
-        height: 250px !important; 
+
+        height: 250px !important;
+
         width: 100% !important;
+
         object-fit: cover !important;
+
     }
+
+
 
     .textarea-full-group textarea {
-        min-height: 250px !important; 
+
+        min-height: 250px !important;
+
         font-size: 1rem !important;
+
     }
+
+
 
     .bottom-action-bar {
-        padding: 20px !important; 
+
+        padding: 20px !important;
+
         text-align: center !important;
+
         box-sizing: border-box !important;
+
     }
 
+
+
     .bio-section p {
-        text-align: left !important; 
+
+        text-align: left !important;
+
         font-size: 0.95rem !important;
+
     }
+
 }
-/* PATCh DEFINITIVA ZOOM FLUIDO CON DUE DITA */
+
+
+
+/* PATCH DEFINITIVA ZOOM FLUIDO CON DUE DITA */
+
 .lightbox-content {
+
     transition: transform 0.05s ease-out !important; /* Reattività immediata al movimento delle dita */
+
     max-width: 85% !important;
+
     max-height: 85% !important;
+
     display: block;
+
     transform-origin: center center;
+
 }
+
+
+
 #lightbox {
+
     overflow: hidden !important;
+
     touch-action: none !important; /* Gestiamo tutto noi via codice per evitare conflitti del browser */
+
 }
+
+
+
+/* MODIFICHE ESCLUSIVE PER MOBILE (TELEFONI) */
+
+@media (max-width: 768px) {
+
+    /* Rimuove il rientro laterale del contenitore principale */
+
+    #blocco-portfolio,
+
+    .projects-grid {
+
+        padding-left: 0 !important;
+
+        padding-right: 0 !important;
+
+    }
+
+
+
+    /* Estende le schede da bordo a bordo orizzontalmente */
+
+    .project-card {
+
+        width: 100% !important;
+
+        margin-left: 0 !important;
+
+        margin-right: 0 !important;
+
+        border-left: none !important;
+
+        border-right: none !important;
+
+        border-radius: 0 !important;
+
+       
+
+        border-top: 1px solid #dcdcdc !important;
+
+        border-bottom: 1px solid #dcdcdc !important;
+
+        margin-bottom: 25px !important;
+
+    }
+
+
+
+    /* Regola l'altezza delle foto ed evita che si schiaccino */
+
+    .project-card img {
+
+        width: 100% !important;
+
+        height: 240px !important;
+
+        object-fit: cover !important;
+
+        border-radius: 0 !important;
+
+    }
+
+
+
+    /* Spaziatura interna del testo sotto la foto */
+
+    .project-card .project-info,
+
+    .project-card div:not(:has(img)) {
+
+        padding: 18px 15px !important;
+
+    } 
+        /* Centra il pulsante 'Torna alla Home' su smartphone */
+
+    .back-btn,
+
+    .btn-back,
+
+    .torna-home,
+
+    a[href*="index"] {
+
+        display: block !important;
+
+        margin-left: auto !important;
+
+        margin-right: auto !important;
+
+        margin-bottom: 25px !important;
+
+        width: fit-content !important;
+
+        text-align: center !important;
+
+    }
+
+
+
+    /* Nel caso il pulsante sia contenuto in un div genitore */
+
+    .btn-container,
+
+    .back-container {
+
+        text-align: center !important;
+
+        width: 100% !important;
+
+    }
+
+}
+
+/* RIMOZIONE BORDI CAMPI DI TESTO FORM CONTATTI */
+
+form input[type="text"],
+
+form input[type="email"],
+
+form input[type="tel"],
+
+.form-group input,
+
+input {
+
+    border: none !important;            /* Rimuove i rettangoli grigi attorno ai campi */
+
+    outline: none !important;           /* Rimuove il bordo blu/scuro quando ci si clicca sopra */
+
+    background: transparent !important; /* Mantiene lo sfondo pulito e trasparente */
+
+    box-shadow: none !important;        /* Elimina eventuali ombre predefinite del browser */
+
+    padding: 8px 0 !important;          /* Spaziatura pulita per il testo */
+
+    font-size: 1.05rem !important;
+
+    color: var(--charcoal) !important;
+
+}
+
+
+
+/* Opzionale: aggiunge una sottile linea inferiore per un effetto minimale ed elegante */
+
+form input[type="text"]:focus,
+
+form input[type="email"]:focus,
+
+form input[type="tel"]:focus,
+
+.form-group input:focus {
+
+    border-bottom: 1px solid var(--charcoal) !important;
+
+}
+
+/* ================= ALLINEAMENTO E CENTRAGGIO UNIVERSALE PULSANTI (PC & MOBILE) ================= */
+
+
+
+/* 1. Centra i pulsanti di tipo link/bottone generali */
+
+.btn-portfolio,
+
+.btn-back,
+
+.btn-write-here,
+
+.back-btn,
+
+.torna-home,
+
+a[href*="index"] {
+
+    display: table !important;
+
+    margin-left: auto !important;
+
+    margin-right: auto !important;
+
+    text-align: center !important;
+
+}
+
+
+
+/* 2. Centra i pulsanti dentro i form (es. "INVIA RICHIESTA") */
+
+form input[type="submit"],
+
+form button,
+
+.bottom-action-bar button,
+
+.bottom-action-bar input[type="submit"] {
+
+    display: block !important;
+
+    margin-left: auto !important;
+
+    margin-right: auto !important;
+
+    text-align: center !important;
+
+}
+
+
+
+/* 3. Assicura che i contenitori dei pulsanti (Header, Action Bar, Form) centrino il loro contenuto */
+
+.header-action-container,
+
+.bottom-action-bar,
+
+.btn-container,
+
+.back-container {
+
+    display: flex !important;
+
+    justify-content: center !important;
+
+    align-items: center !important;
+
+    width: 100% !important;
+
+    text-align: center !important;
+
+    box-sizing: border-box !important;
+
+}
+
+/* ================= ALTEZZA ESCLUSIVA CARTELLA RENDER IN RISTRUTTURAZIONI (SOLO PC) ================= */
+
+@media screen and (min-width: 769px) {
+
+    /* Agisce soltanto sulla scheda Render della pagina Ristrutturazioni */
+
+    .scheda-render-ristrutturazioni .img-container-render {
+
+        width: 100% !important;
+
+        height: 680px !important; /* Aumenta l'altezza solo per questa immagine */
+
+        overflow: hidden !important;
+
+        display: flex !important;
+
+        justify-content: center !important;
+
+        align-items: center !important;
+
+        background-color: var(--beige-medium) !important;
+
+    }
+
+
+
+    .scheda-render-ristrutturazioni .img-container-render img {
+
+        width: 100% !important;
+
+        height: 100% !important;
+
+        object-fit: cover !important; /* Mantiene la foto nitida e proporzionata */
+
+        display: block !important;
+
+    }
+
+}
+
+/* Nasconde la cartella Progettazione e Design senza eliminare nulla */
+
+.project-card.nascondi-cartella {
+
+    display: none !important;
+
+}
+
+/* Stuttura specifica pagina contatti ripulita dall'HTML */
+
+body.page-contatti {
+
+    background-color: var(--beige-light);
+
+    min-height: 100vh;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: space-between;
+
+    margin: 0;
+
+}
+
+
+
+.header-contatti {
+
+    padding: 40px 20px;
+
+}
+
+
+
+.full-screen-main {
+
+    max-width: 100%;
+
+    margin: 0;
+
+    padding: 0;
+
+    width: 100%;
+
+}
+
+
+
+.top-action-bar {
+
+    padding: 20px 40px;
+
+    background-color: var(--white);
+
+    border-bottom: 1px solid var(--beige-medium);
+
+}
+
+
+
+.btn-invia {
+
+    border: none !important;
+
+    cursor: pointer;
+
+    padding: 16px 50px;
+
+}
+
+/* Pulizia stili inline Home */
+
+.section-portfolio-link {
+
+    text-align: center;
+
+    margin-top: 40px;
+
+    margin-bottom: 40px;
+
+}
+
+
+
+.contacts-section {
+
+    margin-top: 60px;
+
+    border-top: 2px solid var(--beige-light);
+
+    padding-top: 40px;
+
+}
+
+
+
+.contacts-list {
+
+    list-style: none;
+
+    padding-left: 0;
+
+    margin-top: 20px;
+
+}
+
+
+
+.contacts-list li {
+
+    margin-bottom: 15px;
+
+    font-size: 1.1rem;
+
+}
+
+
+
+.btn-scrivimi-container {
+
+    margin-top: 25px;
+
+    text-align: center;
+
+}
+
+
+
+.btn-scrivimi-container a {
+
+    text-decoration: none;
+
+    display: inline-block;
+
+}
+
+
+
+.footer-link {
+
+    color: var(--beige-dark);
+
+    text-decoration: none;
+
+}
+
+/* Stili specifici per la pagina Portfolio */
+
+.project-info {
+
+    padding: 25px 20px !important;
+
+    text-align: left !important;
+
+}
+
+.project-info h5 {
+
+    font-size: 18px !important;
+
+    font-weight: 700 !important;
+
+    text-transform: uppercase !important;
+
+    color: #1a1a1a !important;
+
+    margin: 0 0 12px 0 !important;
+
+    line-height: 1.2 !important;
+
+}
+
+.project-info p {
+
+    font-size: 15px !important;
+
+    font-weight: 400 !important;
+
+    color: #333333 !important;
+
+    margin: 0 !important;
+
+    line-height: 1.4 !important;
+
+}
+
+
+
+/* Stile Lightbox */
+
+.lightbox-modal {
+
+    display: none;
+
+    position: fixed;
+
+    z-index: 99999;
+
+    top: 0;
+
+    left: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+    background-color: rgba(30, 32, 34, 0.95);
+
+    justify-content: center;
+
+    align-items: center;
+
+    touch-action: none;
+
+}
+
+.lightbox-content {
+
+    max-width: 85%;
+
+    max-height: 85%;
+
+    border-radius: 4px;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+
+    animation: zoomIn 0.3s ease;
+
+    user-select: none;
+
+    -webkit-user-drag: none;
+
+    transition: transform 0.1s ease-out;
+
+}
+
+.lightbox-close {
+
+    position: absolute;
+
+    top: 30px;
+
+    right: 40px;
+
+    color: #ffffff;
+
+    font-size: 40px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: color 0.2s;
+
+    z-index: 100002;
+
+}
+
+.lightbox-close:hover {
+
+    color: #c5b9a5;
+
+}
+
+.lightbox-arrow {
+
+    position: absolute;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #ffffff;
+
+    font-size: 45px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    padding: 15px 25px;
+
+    user-select: none;
+
+    transition: all 0.2s ease;
+
+    z-index: 100001;
+
+    background-color: rgba(0, 0, 0, 0.2);
+
+    border-radius: 4px;
+
+}
+
+.lightbox-arrow:hover {
+
+    background-color: rgba(0, 0, 0, 0.5);
+
+    color: #c5b9a5;
+
+}
+
+.arrow-left { left: 20px; }
+
+.arrow-right { right: 20px; }
+
+
+
+@keyframes zoomIn {
+
+    from { transform: scale(0.9); opacity: 0; }
+
+    to { transform: scale(1); opacity: 1; }
+
+}
+
+
+
+@media (max-width: 768px) {
+
+    .lightbox-arrow { display: none; }
+
+    .lightbox-close { top: 20px; right: 25px; }
+
+}
+
+
+
+.scheda-nascosta {
+
+    display: none !important;
+
+}
+
+
+
+.tasto-ritorno-container {
+
+    margin-bottom: 30px;
+
+    padding: 0 40px;
+
+}
+
+
+
+#blocco-portfolio {
+
+    border-top: none;
+
+    padding: 0 40px;
+
+} 
+/* 1. Contenitore del modulo: centrato e ridotto solo su PC */
+form, 
+.form-container {
+  width: 100%;
+  max-width: 1050px; /* Regola questo valore se lo vuoi più stretto o più largo */
+  margin: 0 auto;   /* Centra il modulo nella pagina */
+  padding: 0 20px;  /* Mantiene respiro dai bordi */
+  box-sizing: border-box;
+}
+
+/* 2. Estensione dei campi per tutta la larghezza della riga */
+form input[type="text"],
+form input[type="email"],
+form input[type="tel"],
+form textarea {
+  width: 100% !important; /* Costringe il campo ad occupare tutta la riga */
+  box-sizing: border-box; /* Evita che il campo esca dal contenitore */
+  padding: 10px 12px;     /* Spazio di scrittura comodo all'interno del campo */
+  margin-top: 5px;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+/* 3. Area di testo per il messaggio */
+form textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+
+
+
+
