@@ -8,17 +8,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let currentGalleryImages = [];
     let currentIndex = 0;
+    
+    // Variabili per lo swipe da mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
 
-    // Seleziona tutte le immagini della galleria nel portfolio
+    // Seleziona tutte le immagini della galleria
     const galleryImages = document.querySelectorAll(".gallery-img");
 
     galleryImages.forEach(img => {
         img.addEventListener("click", function () {
             const galleryName = this.getAttribute("data-gallery");
-            // Raccoglie tutte le immagini appartenenti alla stessa cartella/galleria
             currentGalleryImages = Array.from(document.querySelectorAll(`.gallery-img[data-gallery="${galleryName}"]`));
             currentIndex = currentGalleryImages.indexOf(this);
-
             openLightbox();
         });
     });
@@ -37,20 +39,18 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Funzione che genera e aggiorna i puntini in basso nel lightbox
     function updateDots() {
         if (!lightboxDots) return;
-        lightboxDots.innerHTML = ""; // Pulisce i puntini precedenti
+        lightboxDots.innerHTML = ""; 
 
         currentGalleryImages.forEach((_, index) => {
             const dot = document.createElement("span");
             dot.classList.add("dot");
             
             if (index === currentIndex) {
-                dot.classList.add("active"); // Evidenzia il puntino della foto corrente
+                dot.classList.add("active"); 
             }
 
-            // Cliccando sul puntino si passa direttamente a quell'immagine
             dot.addEventListener("click", function () {
                 currentIndex = index;
                 updateLightboxContent();
@@ -70,40 +70,61 @@ document.addEventListener("DOMContentLoaded", function () {
         lightboxClose.addEventListener("click", closeLightbox);
     }
 
+    // Funzioni per cambiare foto
+    function nextImage() {
+        currentIndex = (currentIndex + 1) % currentGalleryImages.length;
+        updateLightboxContent();
+    }
+
+    function prevImage() {
+        currentIndex = (currentIndex - 1 + currentGalleryImages.length) % currentGalleryImages.length;
+        updateLightboxContent();
+    }
+
     if (arrowLeft) {
-        arrowLeft.addEventListener("click", function () {
-            currentIndex = (currentIndex - 1 + currentGalleryImages.length) % currentGalleryImages.length;
-            updateLightboxContent();
-        });
+        arrowLeft.addEventListener("click", prevImage);
     }
 
     if (arrowRight) {
-        arrowRight.addEventListener("click", function () {
-            currentIndex = (currentIndex + 1) % currentGalleryImages.length;
-            updateLightboxContent();
-        });
+        arrowRight.addEventListener("click", nextImage);
     }
 
-    // Chiude il lightbox cliccando sullo sfondo scuro esterno
     if (lightboxModal) {
         lightboxModal.addEventListener("click", function (e) {
             if (e.target === lightboxModal) {
                 closeLightbox();
             }
         });
+
+        // GESTIONE SWIPE (TOCCO DA MOBILE)
+        lightboxModal.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        lightboxModal.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, { passive: true });
     }
 
-    // Navigazione da tastiera (Frecce sinistra/destra e ESC)
+    function handleSwipe() {
+        const swipeThreshold = 50; // Distanza minima per considerare valido lo swipe
+        if (touchEndX < touchStartX - swipeThreshold) {
+            nextImage(); // Swipe verso sinistra -> prossima foto
+        }
+        if (touchEndX > touchStartX + swipeThreshold) {
+            prevImage(); // Swipe verso destra -> foto precedente
+        }
+    }
+
     document.addEventListener("keydown", function (e) {
         if (lightboxModal && lightboxModal.style.display === "flex") {
             if (e.key === "Escape") {
                 closeLightbox();
             } else if (e.key === "ArrowLeft") {
-                currentIndex = (currentIndex - 1 + currentGalleryImages.length) % currentGalleryImages.length;
-                updateLightboxContent();
+                prevImage();
             } else if (e.key === "ArrowRight") {
-                currentIndex = (currentIndex + 1) % currentGalleryImages.length;
-                updateLightboxContent();
+                nextImage();
             }
         }
     });
