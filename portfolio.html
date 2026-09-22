@@ -23,7 +23,7 @@
             <a href="index.html" class="btn-back">&larr; Torna alla Home</a>
         </div>
 
-        <!-- GRIGLIA PROGETTI -->
+        <!-- GRIGLIA PROGETTI (Senza puntini interni) -->
         <section id="blocco-portfolio" class="portfolio-section">
             <div class="projects-grid">
                 
@@ -60,7 +60,7 @@
                 <img src="immagini/RENDER SALONE/15.jpg" alt="Salone 15" class="gallery-img scheda-nascosta" data-gallery="SALONE">
                 <img src="immagini/RENDER SALONE/16.jpg" alt="Salone 16" class="gallery-img scheda-nascosta" data-gallery="SALONE">
 
-                <!-- 3. CENTRO ESTETICO (PROGETTO) -->
+                <!-- 3. CENTRO ESTETICO RENDER -->
                 <div class="project-card">
                     <img src="immagini/RENDER CENTRO ESTETICO/1 MARMO.jpg" alt="Centro Estetico Render" class="gallery-img" data-gallery="CENTRO-ESTETICO-RENDER">
                     <div class="project-info">
@@ -85,7 +85,7 @@
                 <img src="immagini/RENDER CENTRO ESTETICO/4 LEGNO (NO).jpg" alt="Centro Estetico Legno 4" class="gallery-img scheda-nascosta" data-gallery="CENTRO-ESTETICO-RENDER">
                 <img src="immagini/RENDER CENTRO ESTETICO/5 LEGNO.jpg" alt="Centro Estetico Legno 5" class="gallery-img scheda-nascosta" data-gallery="CENTRO-ESTETICO-RENDER">
 
-                <!-- 4. CENTRO ESTETICO (PRIMA E DOPO) -->
+                <!-- 4. CENTRO ESTETICO REALE -->
                 <div class="project-card">
                     <img src="immagini/PRIMA E DOPO/prima e dopo 2.jpg" alt="Centro Estetico Realizzato" class="gallery-img" data-gallery="CENTRO-ESTETICO-REALE">
                     <div class="project-info">
@@ -150,11 +150,17 @@
             </div>
         </section>
 
-        <!-- ELEMENTO POPUP LIGHTBOX -->
+        <!-- ELEMENTO POPUP LIGHTBOX (Con contenitore puntini in basso) -->
         <div id="lightboxModal" class="lightbox-modal">
             <span class="lightbox-close">&times;</span>
             <span class="lightbox-arrow arrow-left">❮</span>
-            <img class="lightbox-content" id="lightboxImg" src="" alt="Zoom">
+            
+            <div class="lightbox-container" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
+                <img class="lightbox-content" id="lightboxImg" src="" alt="Zoom">
+                <!-- Puntini dinamici del lightbox -->
+                <div id="lightboxDots" class="dot-indicators"></div>
+            </div>
+
             <span class="lightbox-arrow arrow-right">❯</span>
         </div>
 
